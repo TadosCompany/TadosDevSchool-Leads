@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NHibernate" Version="5.2.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Linq\Infrastructure.Linq.AsyncQueryable.Base\Infrastructure.Linq.AsyncQueryable.Base.csproj" />
+      <ProjectReference Include="..\..\Linq\Infrastructure.Linq.AsyncQueryable.Factories.Abstractions\Infrastructure.Linq.AsyncQueryable.Factories.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Linq\Infrastructure.Linq.Providers.Abstractions\Infrastructure.Linq.Providers.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Repositories\Infrastructure.Repositories.Abstractions\Infrastructure.Repositories.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Transactions\Infrastructure.Transactions.Behaviors\Infrastructure.Transactions.Behaviors.csproj" />
+    </ItemGroup>
+
+</Project>

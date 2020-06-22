@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Commands\Infrastructure.Commands.Builders.Default\Infrastructure.Commands.Builders.Default.csproj" />
+      <ProjectReference Include="..\Infrastructure\NHibernate\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj" />
+      <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Builders.Default\Infrastructure.Queries.Builders.Default.csproj" />
+      <ProjectReference Include="..\Leads.Persistence.NHibernate\Leads.Persistence.NHibernate.csproj" />
+      <ProjectReference Include="..\Leads.Persistence\Leads.Persistence.csproj" />
+      <ProjectReference Include="..\Leads.WebApi.Application\Leads.WebApi.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+      <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.5" />
+      <PackageReference Include="MySql.Data" Version="8.0.20" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
+      <PackageReference Include="Tados.Autofac.Extensions.ConfiguredModules" Version="1.0.0" />
+      <PackageReference Include="Tados.Autofac.Extensions.TypedFactories" Version="1.0.0" />
+    </ItemGroup>
+
+
+</Project>

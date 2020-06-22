@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Identification\Infrastructure.Identification.Base\Infrastructure.Identification.Base.csproj" />
+      <ProjectReference Include="..\Infrastructure.Domain.Entities.Abstractions\Infrastructure.Domain.Entities.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

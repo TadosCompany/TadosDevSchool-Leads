@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure.Queries.Criteria.Abstractions\Infrastructure.Queries.Criteria.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

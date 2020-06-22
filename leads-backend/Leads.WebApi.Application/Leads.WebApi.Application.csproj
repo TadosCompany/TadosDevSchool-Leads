@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Criteria.Common.Extensions\Infrastructure.Queries.Criteria.Common.Extensions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Transactions\Infrastructure.Transactions.Behaviors\Infrastructure.Transactions.Behaviors.csproj" />
+      <ProjectReference Include="..\Leads.Domain\Leads.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="9.0.0" />
+      <PackageReference Include="FluentValidation" Version="8.6.2" />
+    </ItemGroup>
+
+</Project>

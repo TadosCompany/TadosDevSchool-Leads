@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Linq\Infrastructure.Linq.AsyncQueryable.Factories.Abstractions\Infrastructure.Linq.AsyncQueryable.Factories.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Linq\Infrastructure.Linq.Providers.Abstractions\Infrastructure.Linq.Providers.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure.Queries.Abstractions\Infrastructure.Queries.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

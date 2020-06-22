@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentNHibernate" Version="2.1.2" />
+      <PackageReference Include="NHibernate" Version="5.2.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\DataAnnotations\Infrastructure.DataAnnotations\Infrastructure.DataAnnotations.csproj" />
+      <ProjectReference Include="..\..\Domain\Infrastructure.Domain.ValueObjects.Abstractions\Infrastructure.Domain.ValueObjects.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Identification\Infrastructure.Identification.Abstractions\Infrastructure.Identification.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

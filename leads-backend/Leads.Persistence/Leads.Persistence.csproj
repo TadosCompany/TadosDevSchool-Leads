@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Commands\Infrastructure.Commands.Abstractions\Infrastructure.Commands.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Criteria.Common\Infrastructure.Queries.Criteria.Common.csproj" />
+      <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Linq.Base\Infrastructure.Queries.Linq.Base.csproj" />
+      <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Repository.Base\Infrastructure.Queries.Repository.Base.csproj" />
+      <ProjectReference Include="..\Infrastructure\Repositories\Infrastructure.Repositories.Abstractions\Infrastructure.Repositories.Abstractions.csproj" />
+      <ProjectReference Include="..\Leads.Domain\Leads.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
