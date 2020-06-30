@@ -16,6 +16,12 @@
                     policy => policy
                         .AddAuthenticationSchemes(Schemes.UserScheme)
                         .AddRequirements(new UserRequirement()));
+                
+                options.AddPolicy(
+                    Policies.Admin, 
+                    policy => policy
+                    .AddAuthenticationSchemes(Schemes.UserScheme)
+                    .AddRequirements(new AdminRequirement()));
             });
 
             return services;

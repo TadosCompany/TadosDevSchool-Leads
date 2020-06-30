@@ -1,13 +1,14 @@
 ﻿namespace Leads.Domain.Users.Objects.Entities
 {
     using System;
+    using Common;
     using Enums;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Domain.Entities.Base;
     using ValueObjects;
 
 
-    public class User : Entity
+    public class User : Entity, IDummyDeletable
     {
         [Obsolete("Only for reflection", true)]
         public User()

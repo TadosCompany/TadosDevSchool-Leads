@@ -30,6 +30,21 @@
                 .InstancePerDependency();
 
             builder
+                .RegisterGeneric(typeof(FindAllNotDeletedAsyncQuery<>))
+                .AsImplementedInterfaces()
+                .InstancePerDependency();
+
+            builder
+                .RegisterGeneric(typeof(FindNotDeletedByIdAsyncQuery<>))
+                .AsImplementedInterfaces()
+                .InstancePerDependency();
+
+            builder
+                .RegisterGeneric(typeof(FindNotDeletedByIdQuery<>))
+                .AsImplementedInterfaces()
+                .InstancePerDependency();
+
+            builder
                 .RegisterAssemblyTypes(typeof(PersistenceAssemblyMarker).Assembly)
                 .AsClosedTypesOf(typeof(IQuery<,>))
                 .InstancePerDependency();
