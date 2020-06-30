@@ -43,5 +43,20 @@
         {
             Password = new Password(password);
         }
+
+        public virtual void Delete()
+        {
+            DeletedAtUtc ??= DateTime.UtcNow;
+            
+            // TODO : exception?
+        }
+
+        public virtual void Restore()
+        {
+            if (DeletedAtUtc != null)
+                DeletedAtUtc = null;
+            
+            // TODO : exception?
+        }
     }
 }

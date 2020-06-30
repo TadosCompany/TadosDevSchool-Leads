@@ -12,6 +12,7 @@
     using Infrastructure.NHibernate.Sessions.Providers.Abstractions;
     using Infrastructure.Repositories.Abstractions;
     using Infrastructure.Transactions.Behaviors;
+    using Infrastructure.Transactions.Notifications.Abstractions;
     using Persistence.NHibernate;
 
 
@@ -38,6 +39,8 @@
                 .RegisterType<ExpectCommitScopedSessionProvider>()
                 .As<ISessionProvider>()
                 .As<IExpectCommit>()
+                .As<ICommitNotifier>()
+                .As<IRollbackNotifier>()
                 .InstancePerLifetimeScope();
 
             builder

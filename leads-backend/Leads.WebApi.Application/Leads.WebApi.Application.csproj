@@ -11,6 +11,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Criteria.Common.Extensions\Infrastructure.Queries.Criteria.Common.Extensions.csproj" />
       <ProjectReference Include="..\Infrastructure\Transactions\Infrastructure.Transactions.Behaviors\Infrastructure.Transactions.Behaviors.csproj" />
+      <ProjectReference Include="..\Infrastructure\Transactions\Infrastructure.Transactions.Notifications.Abstractions\Infrastructure.Transactions.Notifications.Abstractions.csproj" />
       <ProjectReference Include="..\Leads.Domain\Leads.Domain.csproj" />
     </ItemGroup>
 
