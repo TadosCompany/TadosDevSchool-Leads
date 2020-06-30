@@ -22,6 +22,7 @@
       <PackageReference Include="MySql.Data" Version="8.0.20" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
       <PackageReference Include="Tados.Autofac.Extensions.ConfiguredModules" Version="1.0.0" />
+      <PackageReference Include="Tados.Autofac.Extensions.Registration.OpenGenericTypes" Version="1.0.0" />
       <PackageReference Include="Tados.Autofac.Extensions.TypedFactories" Version="1.0.0" />
     </ItemGroup>
 

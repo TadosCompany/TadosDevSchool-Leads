@@ -2,6 +2,7 @@
 {
     using Application.Persistence;
     using global::Autofac;
+    using global::Autofac.Extensions.Registration.OpenGenericTypes;
     using global::Autofac.Extensions.TypedFactories;
     using Infrastructure.Queries.Abstractions;
     using Infrastructure.Queries.Builders.Abstractions;
@@ -16,33 +17,15 @@
         protected override void Load(ContainerBuilder builder)
         {
             builder
-                .RegisterGeneric(typeof(FindAllObjectsWithIdAsyncQuery<>))
-                .AsImplementedInterfaces()
+                .RegisterAssemblyOpenGenericTypes(typeof(PersistenceAssemblyMarker).Assembly)
+                .ThatImplementsOpenGeneric(typeof(IQuery<,>))
+                .As(typeof(IQuery<,>))
                 .InstancePerDependency();
-
+            
             builder
-                .RegisterGeneric(typeof(FindObjectWithIdByIdQuery<>))
-                .AsImplementedInterfaces()
-                .InstancePerDependency();
-
-            builder
-                .RegisterGeneric(typeof(FindObjectWithIdByIdAsyncQuery<>))
-                .AsImplementedInterfaces()
-                .InstancePerDependency();
-
-            builder
-                .RegisterGeneric(typeof(FindAllNotDeletedAsyncQuery<>))
-                .AsImplementedInterfaces()
-                .InstancePerDependency();
-
-            builder
-                .RegisterGeneric(typeof(FindNotDeletedByIdAsyncQuery<>))
-                .AsImplementedInterfaces()
-                .InstancePerDependency();
-
-            builder
-                .RegisterGeneric(typeof(FindNotDeletedByIdQuery<>))
-                .AsImplementedInterfaces()
+                .RegisterAssemblyOpenGenericTypes(typeof(PersistenceAssemblyMarker).Assembly)
+                .ThatImplementsOpenGeneric(typeof(IAsyncQuery<,>))
+                .As(typeof(IAsyncQuery<,>))
                 .InstancePerDependency();
 
             builder
