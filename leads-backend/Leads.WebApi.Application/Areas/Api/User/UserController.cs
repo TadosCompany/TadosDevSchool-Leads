@@ -14,6 +14,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Requests.Add;
     using Requests.CurrentUser;
+    using Requests.Edit;
     using Requests.ResetPassword;
 
 
@@ -58,6 +59,17 @@
         public Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
         {
             return this.ProcessAsync(request).ToActionResultAsync();
+        }
+        
+        [HttpPost]
+        [Route("edit")]
+        [ProducesResponseType(typeof(EditUserRequestResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Policy = Policies.Admin)]
+        public Task<IActionResult> Add([FromBody] EditUserRequest request)
+        {
+            return this.ProcessAsync(request, (EditUserRequestResult result) => result).ToActionResultAsync();
         }
     }
 }

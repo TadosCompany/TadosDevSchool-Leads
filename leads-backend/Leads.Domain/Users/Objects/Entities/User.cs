@@ -17,12 +17,8 @@
 
         public User(string email, string password, UserRoles role)
         {
-            if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(email));
-
             CreatedAtUtc = DateTime.UtcNow;
-            Email = email;
-            Role = role;
+            Edit(email, role);
             SetPassword(password);
         }
 
@@ -57,6 +53,15 @@
                 DeletedAtUtc = null;
             
             // TODO : exception?
+        }
+
+        protected internal virtual void Edit(string email, UserRoles role)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(email));
+            
+            Email = email.Trim();
+            Role = role;
         }
     }
 }

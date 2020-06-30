@@ -3,14 +3,15 @@
     using Dto;
     using Infrastructure.Requests.Results;
 
+
     public class AddUserRequestResult : IApiRequestResult
     {
-        public AddUserRequestResult(UserDto userDto)
+        public AddUserRequestResult(UserDto user)
         {
-            UserDto = userDto;
+            User = user;
         }
-        
 
-        public UserDto UserDto { get; }
+
+        public UserDto User { get; }
     }
 }

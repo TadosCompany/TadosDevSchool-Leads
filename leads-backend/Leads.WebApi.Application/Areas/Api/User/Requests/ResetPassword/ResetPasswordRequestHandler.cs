@@ -14,13 +14,13 @@
 
     public class ResetPasswordRequestHandler : IAsyncApiRequestHandler<ResetPasswordRequest>
     {
-        private readonly IQueryBuilder _queryBuilder;
+        private readonly IAsyncQueryBuilder _queryBuilder;
         private readonly IPasswordGenerator _passwordGenerator;
         private readonly IEmailMessageSender _emailMessageSender;
 
 
         public ResetPasswordRequestHandler(
-            IQueryBuilder queryBuilder,
+            IAsyncQueryBuilder queryBuilder,
             IPasswordGenerator passwordGenerator,
             IEmailMessageSender emailMessageSender)
         {
@@ -34,7 +34,7 @@
             ResetPasswordRequest request, 
             CancellationToken cancellationToken = default)
         {
-            var user = _queryBuilder.FindNotDeletedById<User>(request.Id);
+            var user = await _queryBuilder.FindNotDeletedByIdAsync<User>(request.Id, cancellationToken);
             
             if (user == null)
                 throw new ApiException(ErrorCodes.UserNotFound, "User not found");
