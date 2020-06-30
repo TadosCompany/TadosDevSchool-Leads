@@ -47,7 +47,7 @@
             // TODO : exception?
         }
 
-        public virtual void Restore()
+        protected internal virtual void Restore()
         {
             if (DeletedAtUtc != null)
                 DeletedAtUtc = null;

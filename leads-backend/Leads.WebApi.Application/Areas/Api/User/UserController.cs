@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
     using Authorization;
-    using Dto;
     using global::Infrastructure.Transactions.Behaviors;
     using Infrastructure.Controllers;
     using Infrastructure.Controllers.Extensions;
@@ -14,8 +13,10 @@
     using Microsoft.AspNetCore.Mvc;
     using Requests.Add;
     using Requests.CurrentUser;
+    using Requests.Delete;
     using Requests.Edit;
     using Requests.ResetPassword;
+    using Requests.Restore;
 
 
     [Area(KnownAreas.Api)]
@@ -49,7 +50,7 @@
         {
             return this.ProcessAsync(request, (AddUserRequestResult result) => result).ToActionResultAsync();
         }
-        
+
         [HttpPost]
         [Route("resetPassword")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -60,7 +61,7 @@
         {
             return this.ProcessAsync(request).ToActionResultAsync();
         }
-        
+
         [HttpPost]
         [Route("edit")]
         [ProducesResponseType(typeof(EditUserRequestResult), StatusCodes.Status200OK)]
@@ -70,6 +71,28 @@
         public Task<IActionResult> Add([FromBody] EditUserRequest request)
         {
             return this.ProcessAsync(request, (EditUserRequestResult result) => result).ToActionResultAsync();
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Policy = Policies.Admin)]
+        public Task<IActionResult> Delete([FromBody] DeleteUserRequest request)
+        {
+            return this.ProcessAsync(request).ToActionResultAsync();
+        }
+
+        [HttpPost]
+        [Route("restore")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Policy = Policies.Admin)]
+        public Task<IActionResult> Restore([FromBody] RestoreUserRequest request)
+        {
+            return this.ProcessAsync(request).ToActionResultAsync();
         }
     }
 }

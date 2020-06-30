@@ -58,5 +58,20 @@
             
             user.Edit(email, role);
         }
+
+        public async Task RestoreAsync(User user, CancellationToken cancellationToken = default)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+            
+            var existingUser = await _asyncQueryBuilder
+                .For<User>()
+                .WithAsync(new FindByEmail(user.Email), cancellationToken);
+            
+            if (!existingUser.Equals(user))
+                throw new UserAlreadyExistsException(); // TODO : message
+            
+            user.Restore();
+        }
     }
 }

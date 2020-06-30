@@ -12,5 +12,7 @@
         Task CreateAsync(User user, CancellationToken cancellationToken = default);
 
         Task EditAsync(User user, string email, UserRoles role, CancellationToken cancellationToken = default);
+
+        Task RestoreAsync(User user, CancellationToken cancellationToken = default);
     }
 }
