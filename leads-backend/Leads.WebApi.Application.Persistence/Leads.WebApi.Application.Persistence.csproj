@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Linq.Base\Infrastructure.Queries.Linq.Base.csproj" />
+      <ProjectReference Include="..\Leads.WebApi.Application\Leads.WebApi.Application.csproj" />
+    </ItemGroup>
+
+</Project>

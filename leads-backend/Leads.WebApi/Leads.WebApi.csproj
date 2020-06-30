@@ -10,6 +10,7 @@
       <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Builders.Default\Infrastructure.Queries.Builders.Default.csproj" />
       <ProjectReference Include="..\Leads.Persistence.NHibernate\Leads.Persistence.NHibernate.csproj" />
       <ProjectReference Include="..\Leads.Persistence\Leads.Persistence.csproj" />
+      <ProjectReference Include="..\Leads.WebApi.Application.Persistence\Leads.WebApi.Application.Persistence.csproj" />
       <ProjectReference Include="..\Leads.WebApi.Application\Leads.WebApi.Application.csproj" />
     </ItemGroup>
 

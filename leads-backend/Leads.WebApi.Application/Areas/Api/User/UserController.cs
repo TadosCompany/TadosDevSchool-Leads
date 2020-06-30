@@ -16,6 +16,7 @@
     using Requests.CurrentUser;
     using Requests.Delete;
     using Requests.Edit;
+    using Requests.List;
     using Requests.ResetPassword;
     using Requests.Restore;
 
@@ -104,6 +105,17 @@
         public IActionResult ChangePassword([FromBody] ChangePasswordRequest request)
         {
             return this.Process(request).ToActionResult();
+        }
+
+        [HttpPost]
+        [Route("list")]
+        [ProducesResponseType(typeof(GetUsersListRequestResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Policy = Policies.Admin)]
+        public Task<IActionResult> List([FromBody] GetUsersListRequest request)
+        {
+            return this.ProcessAsync(request, (GetUsersListRequestResult result) => result).ToActionResultAsync();
         }
     }
 }

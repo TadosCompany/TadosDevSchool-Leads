@@ -1,5 +1,6 @@
 ﻿namespace Leads.WebApi.DI.Autofac.Modules
 {
+    using Application.Persistence;
     using global::Autofac;
     using global::Autofac.Extensions.TypedFactories;
     using Infrastructure.Queries.Abstractions;
@@ -51,6 +52,16 @@
             
             builder
                 .RegisterAssemblyTypes(typeof(PersistenceAssemblyMarker).Assembly)
+                .AsClosedTypesOf(typeof(IAsyncQuery<,>))
+                .InstancePerDependency();
+            
+            builder
+                .RegisterAssemblyTypes(typeof(WebApiApplicationPersistenceAssemblyMarker).Assembly)
+                .AsClosedTypesOf(typeof(IQuery<,>))
+                .InstancePerDependency();
+            
+            builder
+                .RegisterAssemblyTypes(typeof(WebApiApplicationPersistenceAssemblyMarker).Assembly)
                 .AsClosedTypesOf(typeof(IAsyncQuery<,>))
                 .InstancePerDependency();
 

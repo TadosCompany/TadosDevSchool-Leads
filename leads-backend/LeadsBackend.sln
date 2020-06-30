@@ -99,6 +99,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Queries.Repo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Transactions.Notifications.Abstractions", "Infrastructure\Transactions\Infrastructure.Transactions.Notifications.Abstractions\Infrastructure.Transactions.Notifications.Abstractions.csproj", "{1553AEBF-B7E1-40E7-960E-21092D3841B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leads.WebApi.Application.Persistence", "Leads.WebApi.Application.Persistence\Leads.WebApi.Application.Persistence.csproj", "{0BF7A9EE-0990-4322-B730-FA9CF93FE905}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -612,5 +614,17 @@ Global
 		{1553AEBF-B7E1-40E7-960E-21092D3841B1}.Release|x64.Build.0 = Release|Any CPU
 		{1553AEBF-B7E1-40E7-960E-21092D3841B1}.Release|x86.ActiveCfg = Release|Any CPU
 		{1553AEBF-B7E1-40E7-960E-21092D3841B1}.Release|x86.Build.0 = Release|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Debug|x64.Build.0 = Debug|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Debug|x86.Build.0 = Debug|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Release|x64.ActiveCfg = Release|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Release|x64.Build.0 = Release|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Release|x86.ActiveCfg = Release|Any CPU
+		{0BF7A9EE-0990-4322-B730-FA9CF93FE905}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
