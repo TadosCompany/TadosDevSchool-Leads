@@ -10,6 +10,7 @@
     using Infrastructure.Commands.Contexts.Common.Extensions;
     using Infrastructure.Queries.Builders.Abstractions;
     using Objects;
+    using Objects.Entities;
 
 
     public class ClientSourceService : IClientSourceService

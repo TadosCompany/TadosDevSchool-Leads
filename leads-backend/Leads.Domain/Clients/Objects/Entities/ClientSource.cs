@@ -1,4 +1,4 @@
-﻿namespace Leads.Domain.Clients.Objects
+﻿namespace Leads.Domain.Clients.Objects.Entities
 {
     using System;
     using Common;
@@ -18,13 +18,13 @@
             CreatedAtUtc = DateTime.UtcNow;
             Edit(name);
         }
-        
-        
+
+
         [Unique]
         public virtual string Name { get; protected set; }
-        
+
         public virtual DateTime CreatedAtUtc { get; protected set; }
-        
+
         public virtual DateTime? DeletedAtUtc { get; protected set; }
 
 
@@ -32,14 +32,14 @@
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(name));
-            
+
             Name = name.Trim();
         }
 
         public virtual void Delete()
         {
             DeletedAtUtc ??= DateTime.UtcNow;
-            
+
             // TODO : exception?
         }
 
@@ -47,7 +47,7 @@
         {
             if (DeletedAtUtc != null)
                 DeletedAtUtc = null;
-            
+
             // TODO : exception?
         }
     }
