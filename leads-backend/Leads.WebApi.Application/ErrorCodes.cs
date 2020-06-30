@@ -2,7 +2,9 @@
 {
     public static class ErrorCodes
     {
-        public static long UserAlreadyExists = 1;
-        public static long EmailOrPasswordIsIncorrect = 2;
+        public const long UserAlreadyExists = 1;
+        public const long EmailOrPasswordIsIncorrect = 2;
+        public const long UserNotFound = 3;
+        public const long PasswordIsTooWeak = 4;
     }
 }

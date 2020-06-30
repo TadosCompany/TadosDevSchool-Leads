@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Abstractions;
+    using Enums;
     using Exceptions;
     using Infrastructure.Commands.Builders.Abstractions;
     using Infrastructure.Commands.Contexts.Common.Extensions;
@@ -27,6 +28,9 @@
 
         public async Task CreateAsync(User user, CancellationToken cancellationToken = default)
         {
+            if (user == null) 
+                throw new ArgumentNullException(nameof(user));
+            
             var existingUser = await _asyncQueryBuilder
                 .For<User>()
                 .WithAsync(new FindByEmail(user.Email), cancellationToken);
@@ -35,6 +39,39 @@
                 throw new UserAlreadyExistsException(); // TODO : message
 
             await _asyncCommandBuilder.CreateAsync(user, cancellationToken);
+        }
+
+        public async Task EditAsync(User user, string email, UserRoles role, CancellationToken cancellationToken = default)
+        {
+            if (user == null) 
+                throw new ArgumentNullException(nameof(user));
+            
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(email));
+
+            var existingUser = await _asyncQueryBuilder
+                .For<User>()
+                .WithAsync(new FindByEmail(email), cancellationToken);
+            
+            if (!existingUser.Equals(user))
+                throw new UserAlreadyExistsException(); // TODO : message
+            
+            user.Edit(email, role);
+        }
+
+        public async Task RestoreAsync(User user, CancellationToken cancellationToken = default)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+            
+            var existingUser = await _asyncQueryBuilder
+                .For<User>()
+                .WithAsync(new FindByEmail(user.Email), cancellationToken);
+            
+            if (!existingUser.Equals(user))
+                throw new UserAlreadyExistsException(); // TODO : message
+            
+            user.Restore();
         }
     }
 }

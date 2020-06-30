@@ -3,9 +3,14 @@
     using System;
     using Abstractions;
     using global::NHibernate;
+    using Transactions.Notifications.Abstractions;
 
 
-    public abstract class ScopedSessionProviderBase : ISessionProvider, IDisposable
+    public abstract class ScopedSessionProviderBase : 
+        ISessionProvider,
+        ICommitNotifier,
+        IRollbackNotifier,
+        IDisposable
     {
         private readonly ISessionFactory _sessionFactory;
 
@@ -38,16 +43,57 @@
                 return _session;
             }
         }
+        
+        public event EventHandler BeforeCommit;
+        public event EventHandler AfterCommit;
+        public event EventHandler BeforeRollback;
+        public event EventHandler AfterRollback;
 
 
         protected void CommitTransaction()
         {
+            try
+            {
+                OnBeforeCommit();
+            }
+            catch (Exception)
+            {
+                // TODO : inject logger and log
+            }
+            
             _transaction?.Commit();
+            
+            try
+            {
+                OnAfterCommit();
+            }
+            catch (Exception)
+            {
+                // TODO : inject logger and log
+            }
         }
 
         protected void RollbackTransaction()
         {
+            try
+            {
+                OnBeforeRollback();
+            }
+            catch (Exception)
+            {
+                // TODO : inject logger and log
+            }
+            
             _transaction?.Rollback();
+            
+            try
+            {
+                OnAfterRollback();
+            }
+            catch (Exception)
+            {
+                // TODO : inject logger and log
+            }
         }
         
         
@@ -81,5 +127,25 @@
         }
 
         #endregion
+
+        protected virtual void OnBeforeCommit()
+        {
+            BeforeCommit?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnAfterCommit()
+        {
+            AfterCommit?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnBeforeRollback()
+        {
+            BeforeRollback?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnAfterRollback()
+        {
+            AfterRollback?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

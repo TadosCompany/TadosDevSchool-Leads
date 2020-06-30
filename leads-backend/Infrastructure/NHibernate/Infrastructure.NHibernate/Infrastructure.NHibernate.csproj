@@ -14,6 +14,7 @@
       <ProjectReference Include="..\..\Linq\Infrastructure.Linq.Providers.Abstractions\Infrastructure.Linq.Providers.Abstractions.csproj" />
       <ProjectReference Include="..\..\Repositories\Infrastructure.Repositories.Abstractions\Infrastructure.Repositories.Abstractions.csproj" />
       <ProjectReference Include="..\..\Transactions\Infrastructure.Transactions.Behaviors\Infrastructure.Transactions.Behaviors.csproj" />
+      <ProjectReference Include="..\..\Transactions\Infrastructure.Transactions.Notifications.Abstractions\Infrastructure.Transactions.Notifications.Abstractions.csproj" />
     </ItemGroup>
 
 </Project>

@@ -36,6 +36,10 @@
             {
                 throw new ApiException(ErrorCodes.UserAlreadyExists, "User with email already exists");
             }
+            catch (PasswordIsTooWeakException)
+            {
+                throw new ApiException(ErrorCodes.PasswordIsTooWeak, "Password is too weak");
+            }
         }
     }
 }
