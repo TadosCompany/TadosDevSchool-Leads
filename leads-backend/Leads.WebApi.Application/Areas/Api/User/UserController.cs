@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Requests.Add;
+    using Requests.ChangePassword;
     using Requests.CurrentUser;
     using Requests.Delete;
     using Requests.Edit;
@@ -93,6 +94,16 @@
         public Task<IActionResult> Restore([FromBody] RestoreUserRequest request)
         {
             return this.ProcessAsync(request).ToActionResultAsync();
+        }
+
+        [HttpPost]
+        [Route("changePassword")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            return this.Process(request).ToActionResult();
         }
     }
 }
