@@ -14,6 +14,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Requests.Add;
     using Requests.CurrentUser;
+    using Requests.ResetPassword;
 
 
     [Area(KnownAreas.Api)]
@@ -46,6 +47,17 @@
         public Task<IActionResult> Add([FromBody] AddUserRequest request)
         {
             return this.ProcessAsync(request, (AddUserRequestResult result) => result).ToActionResultAsync();
+        }
+        
+        [HttpPost]
+        [Route("resetPassword")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Policy = Policies.Admin)]
+        public Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        {
+            return this.ProcessAsync(request).ToActionResultAsync();
         }
     }
 }
