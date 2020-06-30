@@ -53,7 +53,7 @@
                 .For<User>()
                 .WithAsync(new FindByEmail(email), cancellationToken);
             
-            if (!existingUser.Equals(user))
+            if (existingUser != null && !existingUser.Equals(user))
                 throw new UserAlreadyExistsException(); // TODO : message
             
             user.Edit(email, role);
@@ -68,7 +68,7 @@
                 .For<User>()
                 .WithAsync(new FindByEmail(user.Email), cancellationToken);
             
-            if (!existingUser.Equals(user))
+            if (existingUser != null && !existingUser.Equals(user))
                 throw new UserAlreadyExistsException(); // TODO : message
             
             user.Restore();
