@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Domain.Exceptions;
     using Exceptions;
     using Microsoft.AspNetCore.Mvc;
     using Requests;
@@ -19,10 +20,19 @@
         {
             try
             {
-                controller
-                    .ApiRequestHandlerFactory
-                    .CreateHandler<TApiRequest>()
-                    .Execute(request);
+                try
+                {
+                    controller
+                        .ApiRequestHandlerFactory
+                        .CreateHandler<TApiRequest>()
+                        .Execute(request);
+                }
+                catch (DomainException ex)
+                {
+                    throw controller
+                        .ApiExceptionFactory
+                        .MapException(ex);
+                }
 
                 controller.ExpectCommit.PerformCommit();
 
@@ -44,10 +54,21 @@
         {
             try
             {
-                TApiResult result = controller
-                    .ApiRequestHandlerFactory
-                    .CreateHandler<TApiRequest, TApiResult>()
-                    .Execute(request);
+                TApiResult result;
+
+                try
+                {
+                    result = controller
+                        .ApiRequestHandlerFactory
+                        .CreateHandler<TApiRequest, TApiResult>()
+                        .Execute(request);
+                }
+                catch (DomainException ex)
+                {
+                    throw controller
+                        .ApiExceptionFactory
+                        .MapException(ex);
+                }
 
                 controller.ExpectCommit.PerformCommit();
 
@@ -58,7 +79,7 @@
                 return new ApiResponse<TResponseResult>(ex);
             }
         }
-        
+
         public static async Task<ApiResponse> ProcessAsync<TController, TApiRequest>(
             this TController controller,
             TApiRequest request)
@@ -67,10 +88,19 @@
         {
             try
             {
-                await controller
-                    .ApiRequestHandlerFactory
-                    .CreateAsyncHandler<TApiRequest>()
-                    .ExecuteAsync(request);
+                try
+                {
+                    await controller
+                        .ApiRequestHandlerFactory
+                        .CreateAsyncHandler<TApiRequest>()
+                        .ExecuteAsync(request);
+                }
+                catch (DomainException ex)
+                {
+                    throw controller
+                        .ApiExceptionFactory
+                        .MapException(ex);
+                }
 
                 controller.ExpectCommit.PerformCommit();
 
@@ -82,7 +112,8 @@
             }
         }
 
-        public static async Task<ApiResponse<TResponseResult>> ProcessAsync<TController, TApiRequest, TApiResult, TResponseResult>(
+        public static async Task<ApiResponse<TResponseResult>> ProcessAsync<TController, TApiRequest, TApiResult,
+            TResponseResult>(
             this TController controller,
             TApiRequest request,
             Func<TApiResult, TResponseResult> mapResult)
@@ -92,10 +123,21 @@
         {
             try
             {
-                TApiResult result = await controller
-                    .ApiRequestHandlerFactory
-                    .CreateAsyncHandler<TApiRequest, TApiResult>()
-                    .ExecuteAsync(request);
+                TApiResult result;
+
+                try
+                {
+                    result = await controller
+                        .ApiRequestHandlerFactory
+                        .CreateAsyncHandler<TApiRequest, TApiResult>()
+                        .ExecuteAsync(request);
+                }
+                catch (DomainException ex)
+                {
+                    throw controller
+                        .ApiExceptionFactory
+                        .MapException(ex);
+                }
 
                 controller.ExpectCommit.PerformCommit();
 

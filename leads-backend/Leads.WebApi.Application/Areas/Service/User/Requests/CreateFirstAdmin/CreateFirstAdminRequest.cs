@@ -1,6 +1,7 @@
 ﻿namespace Leads.WebApi.Application.Areas.Service.User.Requests.CreateFirstAdmin
 {
     using FluentValidation;
+    using FluentValidation.Validators;
     using Infrastructure.Requests;
 
     public class CreateFirstAdminRequest : IApiRequest
@@ -17,7 +18,7 @@
         {
             RuleFor(x => x.Email)
                 .NotEmpty()
-                .EmailAddress();
+                .EmailAddress(EmailValidationMode.AspNetCoreCompatible);
 
             RuleFor(x => x.Password)
                 .NotEmpty()

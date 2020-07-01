@@ -8,6 +8,7 @@
     using global::Infrastructure.Queries.Builders.Abstractions;
     using Infrastructure.Authentication;
     using Infrastructure.Exceptions;
+    using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 
 
@@ -15,15 +16,18 @@
     {
         private readonly IAsyncQueryBuilder _asyncQueryBuilder;
         private readonly IAuthenticationService<User> _authenticationService;
+        private readonly IApiExceptionFactory _apiExceptionFactory;
 
 
         public SignInRequestHandler(
             IAsyncQueryBuilder asyncQueryBuilder,
-            IAuthenticationService<User> authenticationService)
+            IAuthenticationService<User> authenticationService,
+            IApiExceptionFactory apiExceptionFactory)
         {
             _asyncQueryBuilder = asyncQueryBuilder ?? throw new ArgumentNullException(nameof(asyncQueryBuilder));
             _authenticationService =
                 authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
+            _apiExceptionFactory = apiExceptionFactory ?? throw new ArgumentNullException(nameof(apiExceptionFactory));
         }
 
 
@@ -32,9 +36,9 @@
             var user = await _asyncQueryBuilder
                 .For<User>()
                 .WithAsync(new FindByEmail(request.Email), cancellationToken);
-            
+
             if (user == null || !user.Password.Check(request.Password))
-                throw new ApiException(ErrorCodes.EmailOrPasswordIsIncorrect, "Wrong email and/or password");
+                throw _apiExceptionFactory.Create(ErrorCodes.EmailOrPasswordIsIncorrect);
 
             await _authenticationService.SignInAsync(user, cancellationToken);
         }

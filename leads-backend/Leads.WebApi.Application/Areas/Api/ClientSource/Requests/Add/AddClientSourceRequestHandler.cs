@@ -10,6 +10,7 @@
     using Domain.Clients.Services.ClientSource.Abstractions;
     using Dto;
     using Infrastructure.Exceptions;
+    using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 
 
@@ -33,18 +34,11 @@
             AddClientSourceRequest request,
             CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var clientSource = new ClientSource(request.Name);
+            var clientSource = new ClientSource(request.Name);
 
-                await _clientSourceService.CreateAsync(clientSource, cancellationToken);
-                
-                return new AddClientSourceRequestResult(_mapper.Map<ClientSourceDto>(clientSource));
-            }
-            catch (ClientSourceAlreadyExistsException)
-            {
-                throw new ApiException(ErrorCodes.ClientSourceAlreadyExists, "Client source already exists");
-            }
+            await _clientSourceService.CreateAsync(clientSource, cancellationToken);
+
+            return new AddClientSourceRequestResult(_mapper.Map<ClientSourceDto>(clientSource));
         }
     }
 }

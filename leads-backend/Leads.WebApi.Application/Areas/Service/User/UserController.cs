@@ -5,6 +5,7 @@ namespace Leads.WebApi.Application.Areas.Service.User
     using global::Infrastructure.Transactions.Behaviors;
     using Infrastructure.Controllers;
     using Infrastructure.Controllers.Extensions;
+    using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers.Factories;
     using Infrastructure.Responses;
     using Infrastructure.Responses.Extensions;
@@ -19,7 +20,8 @@ namespace Leads.WebApi.Application.Areas.Service.User
     {
         public UserController(
             IApiRequestHandlerFactory apiRequestHandlerFactory,
-            IExpectCommit expectCommit) : base(apiRequestHandlerFactory, expectCommit)
+            IExpectCommit expectCommit,
+            IApiExceptionFactory apiExceptionFactory) : base(apiRequestHandlerFactory, expectCommit, apiExceptionFactory)
         {
         }
 

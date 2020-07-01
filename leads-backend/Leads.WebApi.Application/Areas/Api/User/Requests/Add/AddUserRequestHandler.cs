@@ -39,29 +39,22 @@
             AddUserRequest request,
             CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var password = _passwordGenerator.Generate();
+            var password = _passwordGenerator.Generate();
 
-                var user = new User(
-                    request.Email,
-                    password,
-                    request.Role);
+            var user = new User(
+                request.Email,
+                password,
+                request.Role);
 
-                await _userService.CreateAsync(user, cancellationToken);
-                
-                // TODO : message templates
-                await _emailMessageSender.SendMessageAsync(
-                    request.Email,
-                    "Ваша учетная запись",
-                    $"Логин: {user.Email}{Environment.NewLine}Пароль: {password}");
-                
-                return new AddUserRequestResult(_mapper.Map<UserDto>(user));
-            }
-            catch (UserAlreadyExistsException)
-            {
-                throw new ApiException(ErrorCodes.UserAlreadyExists, "User with email already exists");
-            }
+            await _userService.CreateAsync(user, cancellationToken);
+
+            // TODO : message templates
+            await _emailMessageSender.SendMessageAsync(
+                request.Email,
+                "Ваша учетная запись",
+                $"Логин: {user.Email}{Environment.NewLine}Пароль: {password}");
+
+            return new AddUserRequestResult(_mapper.Map<UserDto>(user));
         }
     }
 }

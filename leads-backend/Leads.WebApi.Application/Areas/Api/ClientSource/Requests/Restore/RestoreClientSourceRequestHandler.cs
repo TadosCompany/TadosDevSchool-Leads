@@ -12,6 +12,7 @@
     using Edit;
     using global::Infrastructure.Queries.Builders.Abstractions;
     using Infrastructure.Exceptions;
+    using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 
 
@@ -19,14 +20,17 @@
     {
         private readonly IAsyncQueryBuilder _queryBuilder;
         private readonly IClientSourceService _clientSourceService;
+        private readonly IApiExceptionFactory _apiExceptionFactory;
 
 
         public RestoreClientSourceRequestHandler(
             IAsyncQueryBuilder queryBuilder,
-            IClientSourceService clientSourceService)
+            IClientSourceService clientSourceService,
+            IApiExceptionFactory apiExceptionFactory)
         {
             _queryBuilder = queryBuilder ?? throw new ArgumentNullException(nameof(queryBuilder));
             _clientSourceService = clientSourceService ?? throw new ArgumentNullException(nameof(clientSourceService));
+            _apiExceptionFactory = apiExceptionFactory ?? throw new ArgumentNullException(nameof(apiExceptionFactory));
         }
 
 
@@ -34,20 +38,13 @@
             RestoreClientSourceRequest request,
             CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var clientSource = await _queryBuilder
-                    .FindNotDeletedByIdAsync<ClientSource>(request.Id, cancellationToken);
-                
-                if (clientSource == null)
-                    throw new ApiException(ErrorCodes.ClientSourceNotFound, "ClientSource not found");
+            var clientSource = await _queryBuilder
+                .FindNotDeletedByIdAsync<ClientSource>(request.Id, cancellationToken);
 
-                await _clientSourceService.RestoreAsync(clientSource, cancellationToken);
-            }
-            catch (ClientSourceAlreadyExistsException)
-            {
-                throw new ApiException(ErrorCodes.ClientSourceAlreadyExists, "Client source already exists");
-            }
+            if (clientSource == null)
+                throw _apiExceptionFactory.Create(ErrorCodes.ClientSourceNotFound);
+
+            await _clientSourceService.RestoreAsync(clientSource, cancellationToken);
         }
     }
 }

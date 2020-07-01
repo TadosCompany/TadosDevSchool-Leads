@@ -26,20 +26,9 @@
             CreateFirstAdminRequest request,
             CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var user = new User(request.Email.Trim(), request.Password, UserRoles.Administrator);
+            var user = new User(request.Email.Trim(), request.Password, UserRoles.Administrator);
 
-                await _userService.CreateAsync(user, cancellationToken);
-            }
-            catch (UserAlreadyExistsException)
-            {
-                throw new ApiException(ErrorCodes.UserAlreadyExists, "User with email already exists");
-            }
-            catch (PasswordIsTooWeakException)
-            {
-                throw new ApiException(ErrorCodes.PasswordIsTooWeak, "Password is too weak");
-            }
+            await _userService.CreateAsync(user, cancellationToken);
         }
     }
 }

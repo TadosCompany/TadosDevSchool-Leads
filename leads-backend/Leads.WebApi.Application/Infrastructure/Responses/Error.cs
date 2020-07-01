@@ -27,6 +27,6 @@
 
         public string Message { get; }
 
-        public long Code { get; }
+        public ErrorCodes Code { get; }
     }
 }

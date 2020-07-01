@@ -11,17 +11,22 @@
     using Edit;
     using global::Infrastructure.Queries.Builders.Abstractions;
     using Infrastructure.Exceptions;
+    using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 
 
     public class DeleteClientSourceRequestHandler : IAsyncApiRequestHandler<DeleteClientSourceRequest>
     {
         private readonly IAsyncQueryBuilder _queryBuilder;
+        private readonly IApiExceptionFactory _apiExceptionFactory;
 
 
-        public DeleteClientSourceRequestHandler(IAsyncQueryBuilder queryBuilder)
+        public DeleteClientSourceRequestHandler(
+            IAsyncQueryBuilder queryBuilder,
+            IApiExceptionFactory apiExceptionFactory)
         {
             _queryBuilder = queryBuilder ?? throw new ArgumentNullException(nameof(queryBuilder));
+            _apiExceptionFactory = apiExceptionFactory ?? throw new ArgumentNullException(nameof(apiExceptionFactory));
         }
 
 
@@ -29,9 +34,9 @@
         {
             var clientSource = await _queryBuilder
                 .FindNotDeletedByIdAsync<ClientSource>(request.Id, cancellationToken);
-                
+
             if (clientSource == null)
-                throw new ApiException(ErrorCodes.ClientSourceNotFound, "ClientSource not found");
+                throw _apiExceptionFactory.Create(ErrorCodes.ClientSourceNotFound);
             
             clientSource.Delete();
         }
