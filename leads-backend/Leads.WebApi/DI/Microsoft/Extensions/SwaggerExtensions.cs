@@ -2,6 +2,7 @@
 {
     using global::Microsoft.Extensions.DependencyInjection;
     using global::Microsoft.OpenApi.Models;
+    using Swashbuckle.AspNetCore.Swagger;
 
 
     public static class SwaggerExtensions
@@ -27,7 +28,9 @@
                     });
 
                 options.CustomSchemaIds(x => x.FullName);
-            });
+                
+                options.AddFluentValidationRules();
+            }).AddSwaggerGenNewtonsoftSupport();
 
             return services;
         }

@@ -2,6 +2,7 @@
 {
     using Domain.Users.Enums;
     using FluentValidation;
+    using FluentValidation.Validators;
     using Infrastructure.Requests;
 
 
@@ -19,7 +20,7 @@
         {
             RuleFor(x => x.Email)
                 .NotEmpty()
-                .EmailAddress();
+                .EmailAddress(EmailValidationMode.AspNetCoreCompatible);
         }
     }
 }

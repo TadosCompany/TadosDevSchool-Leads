@@ -5,17 +5,17 @@
 
     public class ApiException : Exception
     {
-        public ApiException(long code, string message) : base(message)
+        public ApiException(ErrorCodes code, string message) : base(message)
         {
             Code = code;
         }
 
-        public ApiException(long code, string message, Exception innerException) : base(message, innerException)
+        public ApiException(ErrorCodes code, string message, Exception innerException) : base(message, innerException)
         {
             Code = code;
         }
 
 
-        public long Code { get; }
+        public ErrorCodes Code { get; }
     }
 }

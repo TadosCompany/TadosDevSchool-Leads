@@ -10,6 +10,7 @@
     using global::Infrastructure.Queries.Builders.Abstractions;
     using global::Infrastructure.Queries.Criteria.Common.Extensions;
     using Infrastructure.Exceptions;
+    using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 
 
@@ -17,32 +18,28 @@
     {
         private readonly IAsyncQueryBuilder _queryBuilder;
         private readonly IUserService _userService;
+        private readonly IApiExceptionFactory _apiExceptionFactory;
 
 
         public RestoreUserRequestHandler(
             IAsyncQueryBuilder queryBuilder,
-            IUserService userService)
+            IUserService userService,
+            IApiExceptionFactory apiExceptionFactory)
         {
             _queryBuilder = queryBuilder ?? throw new ArgumentNullException(nameof(queryBuilder));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _apiExceptionFactory = apiExceptionFactory ?? throw new ArgumentNullException(nameof(apiExceptionFactory));
         }
 
 
         public async Task ExecuteAsync(RestoreUserRequest request, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var user = await _queryBuilder.FindByIdAsync<User>(request.Id, cancellationToken);
-            
-                if (user == null)
-                    throw new ApiException(ErrorCodes.UserNotFound, "User not found");
+            var user = await _queryBuilder.FindByIdAsync<User>(request.Id, cancellationToken);
 
-                await _userService.RestoreAsync(user, cancellationToken);
-            }
-            catch (UserAlreadyExistsException)
-            {
-                throw new ApiException(ErrorCodes.UserAlreadyExists, "User with email already exists");
-            }
+            if (user == null)
+                throw _apiExceptionFactory.Create(ErrorCodes.UserNotFound);
+
+            await _userService.RestoreAsync(user, cancellationToken);
         }
     }
 }

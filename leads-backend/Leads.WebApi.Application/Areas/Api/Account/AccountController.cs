@@ -5,6 +5,7 @@
     using global::Infrastructure.Transactions.Behaviors;
     using Infrastructure.Controllers;
     using Infrastructure.Controllers.Extensions;
+    using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers.Factories;
     using Infrastructure.Responses;
     using Infrastructure.Responses.Extensions;
@@ -23,7 +24,8 @@
     {
         public AccountController(
             IApiRequestHandlerFactory apiRequestHandlerFactory,
-            IExpectCommit expectCommit) : base(apiRequestHandlerFactory, expectCommit)
+            IExpectCommit expectCommit,
+            IApiExceptionFactory apiExceptionFactory) : base(apiRequestHandlerFactory, expectCommit, apiExceptionFactory)
         {
         }
 

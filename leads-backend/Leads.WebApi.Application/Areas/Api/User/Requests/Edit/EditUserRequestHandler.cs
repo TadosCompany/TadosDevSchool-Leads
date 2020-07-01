@@ -11,6 +11,7 @@
     using Dto;
     using global::Infrastructure.Queries.Builders.Abstractions;
     using Infrastructure.Exceptions;
+    using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 
 
@@ -19,16 +20,19 @@
         private readonly IAsyncQueryBuilder _queryBuilder;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IApiExceptionFactory _apiExceptionFactory;
 
 
         public EditUserRequestHandler(
             IAsyncQueryBuilder queryBuilder,
             IUserService userService,
-            IMapper mapper)
+            IMapper mapper,
+            IApiExceptionFactory apiExceptionFactory)
         {
             _queryBuilder = queryBuilder ?? throw new ArgumentNullException(nameof(queryBuilder));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _apiExceptionFactory = apiExceptionFactory ?? throw new ArgumentNullException(nameof(apiExceptionFactory));
         }
 
 
@@ -36,25 +40,18 @@
             EditUserRequest request,
             CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var user = await _queryBuilder.FindNotDeletedByIdAsync<User>(request.Id, cancellationToken);
+            var user = await _queryBuilder.FindNotDeletedByIdAsync<User>(request.Id, cancellationToken);
 
-                if (user == null)
-                    throw new ApiException(ErrorCodes.UserNotFound, "User not found");
+            if (user == null)
+                throw _apiExceptionFactory.Create(ErrorCodes.UserNotFound);
 
-                await _userService.EditAsync(
-                    user,
-                    request.Email,
-                    request.Role,
-                    cancellationToken);
-                
-                return new EditUserRequestResult(_mapper.Map<UserDto>(user));
-            }
-            catch (UserAlreadyExistsException)
-            {
-                throw new ApiException(ErrorCodes.UserAlreadyExists, "User with email already exists");
-            }
+            await _userService.EditAsync(
+                user,
+                request.Email,
+                request.Role,
+                cancellationToken);
+
+            return new EditUserRequestResult(_mapper.Map<UserDto>(user));
         }
     }
 }
