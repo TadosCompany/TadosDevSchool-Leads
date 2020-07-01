@@ -7,6 +7,8 @@
     {
         public UserRoles[] Roles { get; set; }
         
+        public bool ShowDeleted { get; set; }
+        
         public string SearchString { get; set; }
     }
 }

@@ -34,6 +34,8 @@
 
         public virtual DateTime? DeletedAtUtc { get; protected set; }
 
+        public virtual bool IsDeleted => DeletedAtUtc.HasValue;
+
 
         public virtual void SetPassword(string password)
         {

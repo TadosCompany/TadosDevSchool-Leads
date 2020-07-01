@@ -4,6 +4,7 @@
     using Domain.Users.Exceptions;
     using Infrastructure.Exceptions.Attributes;
 
+
     public enum ErrorCodes
     {
         [DefaultMessage("Unknown error")]
@@ -29,5 +30,13 @@
 
         [DefaultMessage("Client source not found")]
         ClientSourceNotFound = 6,
+        
+        [DefaultMessage("Client source with specified name already exists but deleted")]
+        [MapFromException(typeof(ClientSourceExistsButDeletedException))]
+        ClientSourceExistsButDeleted = 7,
+        
+        [DefaultMessage("User with specified email exists but deleted")]
+        [MapFromException(typeof(UserExistsButDeletedException))]
+        UserExistsButDeleted = 8,
     }
 }

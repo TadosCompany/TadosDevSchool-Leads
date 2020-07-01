@@ -10,5 +10,7 @@
         public string Email { get; set; }
 
         public UserRoles Role { get; set; }
+        
+        public bool IsDeleted { get; set; }
     }
 }

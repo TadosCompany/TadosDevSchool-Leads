@@ -1,27 +1,29 @@
-﻿namespace Leads.Persistence.Users.User.Queries
+﻿namespace Leads.Persistence.Common.Queries
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Domain.Users.Objects.Entities;
-    using Domain.Users.Queries.Criteria;
+    using Domain.Common;
+    using Domain.Common.Queries.Criteria;
+    using Infrastructure.Identification.Abstractions;
     using Infrastructure.Linq.AsyncQueryable.Factories.Abstractions;
     using Infrastructure.Linq.Providers.Abstractions;
     using Infrastructure.Queries.Linq.Base;
 
 
-    public class FindUserByEmailAsyncQuery : LinqAsyncQueryBase<User, FindByEmail, User>
+    public class FindByNameAsyncQuery<T> : LinqAsyncQueryBase<T, FindByName, T>
+        where T : class, IHasId, IHasName, new()
     {
-        public FindUserByEmailAsyncQuery(
+        public FindByNameAsyncQuery(
             ILinqProvider linqProvider,
             IAsyncQueryableFactory asyncQueryableFactory) : base(linqProvider, asyncQueryableFactory)
         {
         }
 
 
-        public override Task<User> AskAsync(FindByEmail criterion, CancellationToken cancellationToken = default)
+        public override Task<T> AskAsync(FindByName criterion, CancellationToken cancellationToken = default)
         {
             return AsyncQuery.SingleOrDefaultAsync(
-                x => x.Email == criterion.Email,
+                x => x.Name == criterion.Name,
                 cancellationToken);
         }
     }

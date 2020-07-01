@@ -9,19 +9,20 @@
     using Infrastructure.Queries.Linq.Base;
 
 
-    public class FindUserByEmailAsyncQuery : LinqAsyncQueryBase<User, FindByEmail, User>
+    public class FindNotDeletedUserByEmailAsyncQuery
+        : LinqAsyncQueryBase<User, FindNotDeletedByEmail, User>
     {
-        public FindUserByEmailAsyncQuery(
-            ILinqProvider linqProvider,
+        public FindNotDeletedUserByEmailAsyncQuery(ILinqProvider linqProvider,
             IAsyncQueryableFactory asyncQueryableFactory) : base(linqProvider, asyncQueryableFactory)
         {
         }
 
 
-        public override Task<User> AskAsync(FindByEmail criterion, CancellationToken cancellationToken = default)
+        public override Task<User> AskAsync(FindNotDeletedByEmail criterion,
+            CancellationToken cancellationToken = default)
         {
             return AsyncQuery.SingleOrDefaultAsync(
-                x => x.Email == criterion.Email,
+                x => x.DeletedAtUtc == null && x.Email == criterion.Email,
                 cancellationToken);
         }
     }

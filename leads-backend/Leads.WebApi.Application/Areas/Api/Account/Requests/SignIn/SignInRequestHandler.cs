@@ -35,7 +35,7 @@
         {
             var user = await _asyncQueryBuilder
                 .For<User>()
-                .WithAsync(new FindByEmail(request.Email), cancellationToken);
+                .WithAsync(new FindNotDeletedByEmail(request.Email), cancellationToken);
 
             if (user == null || !user.Password.Check(request.Password))
                 throw _apiExceptionFactory.Create(ErrorCodes.EmailOrPasswordIsIncorrect);

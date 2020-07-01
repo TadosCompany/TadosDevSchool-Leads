@@ -14,8 +14,8 @@
         {
         }
 
-        public ClientSourceAlreadyExistsException(string message, Exception innerException) : base(message,
-            innerException)
+        public ClientSourceAlreadyExistsException(string message, Exception innerException)
+            : base(message, innerException)
         {
         }
     }

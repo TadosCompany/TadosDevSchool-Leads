@@ -30,15 +30,25 @@
             ClientSource clientSource,
             CancellationToken cancellationToken = default)
         {
-            if (clientSource == null) 
+            if (clientSource == null)
                 throw new ArgumentNullException(nameof(clientSource));
 
             var existingClientSource = await _queryBuilder
                 .For<ClientSource>()
-                .WithAsync(new FindNotDeletedByName(clientSource.Name), cancellationToken);
-            
+                .WithAsync(new FindByName(clientSource.Name), cancellationToken);
+
             if (existingClientSource != null)
-                throw new ClientSourceAlreadyExistsException();
+            {
+                if (!existingClientSource.IsDeleted)
+                {
+                    throw new ClientSourceAlreadyExistsException();
+                }
+                else
+                {
+                    throw new ClientSourceExistsButDeletedException();
+                }
+            }
+
 
             await _commandBuilder.CreateAsync(clientSource, cancellationToken);
         }
@@ -50,29 +60,47 @@
         {
             if (clientSource == null)
                 throw new ArgumentNullException(nameof(clientSource));
-            
+
             var existingClientSource = await _queryBuilder
                 .For<ClientSource>()
-                .WithAsync(new FindNotDeletedByName(clientSource.Name), cancellationToken);
-            
+                .WithAsync(new FindByName(clientSource.Name), cancellationToken);
+
             if (existingClientSource != null && !existingClientSource.Equals(clientSource))
-                throw new ClientSourceAlreadyExistsException();
-            
+            {
+                if (!existingClientSource.IsDeleted)
+                {
+                    throw new ClientSourceAlreadyExistsException();
+                }
+                else
+                {
+                    throw new ClientSourceExistsButDeletedException();
+                }
+            }
+
             clientSource.Edit(name);
         }
 
         public async Task RestoreAsync(ClientSource clientSource, CancellationToken cancellationToken = default)
         {
-            if (clientSource == null) 
+            if (clientSource == null)
                 throw new ArgumentNullException(nameof(clientSource));
-            
+
             var existingClientSource = await _queryBuilder
                 .For<ClientSource>()
-                .WithAsync(new FindNotDeletedByName(clientSource.Name), cancellationToken);
-            
+                .WithAsync(new FindByName(clientSource.Name), cancellationToken);
+
             if (existingClientSource != null && !existingClientSource.Equals(clientSource))
-                throw new ClientSourceAlreadyExistsException();
-            
+            {
+                if (!existingClientSource.IsDeleted)
+                {
+                    throw new ClientSourceAlreadyExistsException();
+                }
+                else
+                {
+                    throw new ClientSourceExistsButDeletedException();
+                }
+            }
+
             clientSource.Restore();
         }
     }

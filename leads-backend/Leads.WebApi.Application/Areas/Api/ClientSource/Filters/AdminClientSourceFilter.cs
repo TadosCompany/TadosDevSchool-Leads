@@ -3,5 +3,7 @@
     public class AdminClientSourceFilter
     {
         public string SearchString { get; set; }
+        
+        public bool ShowDeleted { get; set; }
     }
 }
