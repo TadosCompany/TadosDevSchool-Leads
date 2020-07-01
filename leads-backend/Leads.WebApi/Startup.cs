@@ -21,7 +21,7 @@ namespace Leads.WebApi
         public IConfiguration Configuration { get; }
 
 
-        public void ConfigureContainer(ContainerBuilder containerBuilder)
+        public virtual void ConfigureContainer(ContainerBuilder containerBuilder)
         {
             containerBuilder
                 .RegisterConfiguredModulesFromCurrentAssembly(Configuration);

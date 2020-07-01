@@ -23,10 +23,10 @@
         }
 
 
-        private bool ShouldExpose => true;
+        protected virtual bool ShouldExpose => true;
 
 
-        private IPersistenceConfigurer GetDatabaseConfiguration() =>
+        protected virtual IPersistenceConfigurer GetDatabaseConfiguration() =>
             MySQLConfiguration
                 .Standard
                 .Dialect<MySQL57Dialect>()
@@ -42,7 +42,7 @@
                 .Conventions.AddFromAssemblyOf<NHibernateInitializer>()
                 .UseOverridesFromAssemblyOf<NHibernateInitializer>();
 
-        private void Expose(Configuration configuration)
+        protected virtual void Expose(Configuration configuration)
         {
 #if DEBUG
             if (ShouldExpose)
