@@ -9,7 +9,6 @@
     using Infrastructure.Commands.Builders.Abstractions;
     using Infrastructure.Commands.Contexts.Common.Extensions;
     using Infrastructure.Queries.Builders.Abstractions;
-    using Objects;
     using Objects.Entities;
 
 
@@ -63,7 +62,7 @@
 
             var existingClientSource = await _queryBuilder
                 .For<ClientSource>()
-                .WithAsync(new FindByName(clientSource.Name), cancellationToken);
+                .WithAsync(new FindByName(name), cancellationToken);
 
             if (existingClientSource != null && !existingClientSource.Equals(clientSource))
             {

@@ -9,7 +9,6 @@
     using Infrastructure.Queries.Builders.Default;
     using Infrastructure.Queries.Factories.Abstractions;
     using Persistence;
-    using Persistence.Common.Queries;
 
 
     public class QueriesModule : Module

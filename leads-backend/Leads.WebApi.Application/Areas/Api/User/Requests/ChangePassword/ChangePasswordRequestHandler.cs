@@ -1,12 +1,8 @@
 ﻿namespace Leads.WebApi.Application.Areas.Api.User.Requests.ChangePassword
 {
     using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Domain.Users.Exceptions;
     using Domain.Users.Objects.Entities;
     using Infrastructure.Authorization.Providers;
-    using Infrastructure.Exceptions;
     using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 

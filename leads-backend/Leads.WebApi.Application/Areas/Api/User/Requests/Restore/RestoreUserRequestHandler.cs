@@ -3,13 +3,10 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Domain.Common.Queries.Criteria.Extensions;
-    using Domain.Users.Exceptions;
     using Domain.Users.Objects.Entities;
     using Domain.Users.Services.Abstractions;
     using global::Infrastructure.Queries.Builders.Abstractions;
     using global::Infrastructure.Queries.Criteria.Common.Extensions;
-    using Infrastructure.Exceptions;
     using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 

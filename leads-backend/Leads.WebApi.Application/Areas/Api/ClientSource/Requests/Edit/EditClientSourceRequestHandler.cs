@@ -4,14 +4,11 @@
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using Domain.Clients.Exceptions;
-    using Domain.Clients.Objects;
     using Domain.Clients.Objects.Entities;
     using Domain.Clients.Services.ClientSource.Abstractions;
     using Domain.Common.Queries.Criteria.Extensions;
     using Dto;
     using global::Infrastructure.Queries.Builders.Abstractions;
-    using Infrastructure.Exceptions;
     using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 

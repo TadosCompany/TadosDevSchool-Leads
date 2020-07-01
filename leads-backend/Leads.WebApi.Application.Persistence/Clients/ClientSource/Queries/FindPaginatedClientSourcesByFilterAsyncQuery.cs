@@ -4,7 +4,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Areas.Api.ClientSource.Filters;
-    using Domain.Clients.Objects;
     using Domain.Clients.Objects.Entities;
     using global::Infrastructure.Linq.AsyncQueryable.Factories.Abstractions;
     using global::Infrastructure.Linq.Providers.Abstractions;
@@ -27,10 +26,15 @@
             FindPaginatedByFilter<AdminClientSourceFilter> criterion,
             CancellationToken cancellationToken = default)
         {
-            var query = Query.Where(x => x.DeletedAtUtc == null);
+            var query = Query;
 
             if (criterion.Filter != null)
             {
+                if (!criterion.Filter.ShowDeleted)
+                {
+                    query = query.Where(x => x.DeletedAtUtc == null);
+                }
+                
                 if (!string.IsNullOrWhiteSpace(criterion.Filter.SearchString))
                 {
                     query = query.Where(x => x.Name.Contains(criterion.Filter.SearchString));

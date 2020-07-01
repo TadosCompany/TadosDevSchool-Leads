@@ -5,7 +5,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using Domain.Clients.Objects;
     using Domain.Clients.Objects.Entities;
     using Dto;
     using Filters;

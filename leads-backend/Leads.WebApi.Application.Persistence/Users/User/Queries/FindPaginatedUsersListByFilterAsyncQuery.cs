@@ -25,10 +25,15 @@
             FindPaginatedByFilter<AdminUserFilter> criterion,
             CancellationToken cancellationToken = default)
         {
-            var query = Query.Where(x => x.DeletedAtUtc == null);
-
+            var query = Query;
+            
             if (criterion.Filter != null)
             {
+                if (!criterion.Filter.ShowDeleted)
+                {
+                    query = query.Where(x => x.DeletedAtUtc == null);
+                }
+                
                 if (criterion.Filter.Roles != null && criterion.Filter.Roles.Length > 0)
                 {
                     query = query.Where(x => criterion.Filter.Roles.Contains(x.Role));

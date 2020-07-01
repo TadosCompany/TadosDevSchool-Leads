@@ -4,10 +4,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Domain.Users.Enums;
-    using Domain.Users.Exceptions;
     using Domain.Users.Objects.Entities;
     using Domain.Users.Services.Abstractions;
-    using Infrastructure.Exceptions;
     using Infrastructure.Requests.Handlers;
 
 

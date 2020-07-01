@@ -6,7 +6,6 @@
     using Domain.Common.Queries.Criteria.Extensions;
     using Domain.Users.Objects.Entities;
     using global::Infrastructure.Queries.Builders.Abstractions;
-    using Infrastructure.Exceptions;
     using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Messaging;
     using Infrastructure.Requests.Handlers;

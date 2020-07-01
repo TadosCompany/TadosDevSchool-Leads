@@ -6,7 +6,7 @@
     using Infrastructure.Domain.Entities.Base;
 
 
-    public class ClientSource : Entity, IDummyDeletable
+    public class ClientSource : Entity, IHasName, IDummyDeletable
     {
         [Obsolete("Only for reflection", true)]
         public ClientSource()

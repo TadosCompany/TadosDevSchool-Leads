@@ -7,7 +7,6 @@
     using Domain.Users.Queries.Criteria;
     using global::Infrastructure.Queries.Builders.Abstractions;
     using Infrastructure.Authentication;
-    using Infrastructure.Exceptions;
     using Infrastructure.Exceptions.Factories.Abstractions;
     using Infrastructure.Requests.Handlers;
 

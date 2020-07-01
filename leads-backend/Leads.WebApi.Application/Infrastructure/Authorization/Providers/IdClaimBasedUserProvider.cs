@@ -5,7 +5,6 @@
     using Domain.Common.Queries.Criteria.Extensions;
     using global::Infrastructure.Domain.Entities.Abstractions;
     using global::Infrastructure.Queries.Builders.Abstractions;
-    using global::Infrastructure.Queries.Criteria.Common.Extensions;
     using Microsoft.AspNetCore.Http;
 
 

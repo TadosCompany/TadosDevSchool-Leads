@@ -1,6 +1,5 @@
 ﻿namespace Leads.WebApi.Application.Areas.Api.Account.Requests.SignIn
 {
-    using System.ComponentModel.DataAnnotations;
     using FluentValidation;
     using FluentValidation.Validators;
     using Infrastructure.Requests;

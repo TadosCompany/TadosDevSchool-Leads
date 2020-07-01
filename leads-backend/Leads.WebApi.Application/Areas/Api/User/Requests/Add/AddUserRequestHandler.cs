@@ -4,11 +4,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using Domain.Users.Exceptions;
     using Domain.Users.Objects.Entities;
     using Domain.Users.Services.Abstractions;
     using Dto;
-    using Infrastructure.Exceptions;
     using Infrastructure.Messaging;
     using Infrastructure.Requests.Handlers;
     using Infrastructure.Security.Passwords;
