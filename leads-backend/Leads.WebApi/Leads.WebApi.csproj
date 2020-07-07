@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Autofac\Autofac.Extensions.TypedFactories\Autofac.Extensions.TypedFactories.csproj" />
       <ProjectReference Include="..\Infrastructure\Commands\Infrastructure.Commands.Builders.Default\Infrastructure.Commands.Builders.Default.csproj" />
       <ProjectReference Include="..\Infrastructure\NHibernate\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj" />
       <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Builders.Default\Infrastructure.Queries.Builders.Default.csproj" />
@@ -25,7 +26,6 @@
       <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.5.1" />
       <PackageReference Include="Tados.Autofac.Extensions.ConfiguredModules" Version="1.0.0" />
       <PackageReference Include="Tados.Autofac.Extensions.Registration.OpenGenericTypes" Version="1.0.0" />
-      <PackageReference Include="Tados.Autofac.Extensions.TypedFactories" Version="1.0.0" />
     </ItemGroup>
 
 

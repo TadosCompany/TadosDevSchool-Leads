@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net.Http;
+    using Client;
     using Microsoft.AspNetCore.Mvc.Testing;
     using Xunit;
 
@@ -12,8 +13,7 @@
 
         protected ApiTestBase(WebApiApplicationFactory webApiApplicationFactory)
         {
-            _webApiApplicationFactory = webApiApplicationFactory ??
-                                        throw new ArgumentNullException(nameof(webApiApplicationFactory));
+            _webApiApplicationFactory = webApiApplicationFactory ?? throw new ArgumentNullException(nameof(webApiApplicationFactory));
         }
 
 
@@ -25,9 +25,9 @@
             });
         }
 
-        protected Api.Api CreateApi()
+        protected ApiClient CreateApi()
         {
-            return new Api.Api(CreateClient());
+            return new ApiClient(CreateClient());
         }
     }
 }

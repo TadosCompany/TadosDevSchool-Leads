@@ -1,13 +1,13 @@
-﻿namespace Leads.WebApi.Test.Tests.Common.Api
+﻿namespace Leads.WebApi.Test.Client.Account
 {
     using System.Net.Http;
     using System.Threading.Tasks;
-    using Application.Areas.Api.Account.Requests.IsAuthorized;
-    using Application.Areas.Api.Account.Requests.SignIn;
-    using Application.Areas.Api.Account.Requests.SignOut;
+    using Common;
+    using Common.Results;
+    using Requests;
+    using Results;
 
-
-    public class AccountApi : ApiBase
+    public class AccountApi : ApiClientBase
     {
         public AccountApi(HttpClient client) : base(client)
         {
@@ -25,11 +25,7 @@
         {
             return MakeRequestAsync(
                 "api/account/signIn",
-                new SignInRequest()
-                {
-                    Email = email,
-                    Password = password,
-                });
+                new SignInRequest(email, password));
         }
 
         public Task<ApiResult> SignOutAsync()

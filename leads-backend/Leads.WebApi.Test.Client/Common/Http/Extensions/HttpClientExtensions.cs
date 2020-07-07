@@ -1,11 +1,11 @@
-﻿namespace Leads.WebApi.Test.Tests.Common.Extensions
+﻿namespace Leads.WebApi.Test.Client.Common.Http.Extensions
 {
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
-    using Application.Infrastructure.Requests.Results;
-    using Data;
+    using Json;
     using Newtonsoft.Json;
+    using Results;
 
     public static class HttpClientExtensions
     {
@@ -24,16 +24,15 @@
             return new ResultWrapper(await responseMessage.Content.ReadAsStringAsync());
         }
 
-        public static async Task<ResultWrapper<TApiResult>> ToResultAsync<TApiResult>(
+        public static async Task<ResultWrapper<T>> ToResultAsync<T>(
             this HttpResponseMessage responseMessage)
-            where TApiResult : IApiRequestResult
         {
-            return new ResultWrapper<TApiResult>(await responseMessage.Content.ReadAsStringAsync());
+            return new ResultWrapper<T>(await responseMessage.Content.ReadAsStringAsync());
         }
 
         private static HttpContent CreateContent<T>(this T data)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(data));
+            var content = new StringContent(JsonConvert.SerializeObject(data, JsonSettings.Converters));
 
             content.Headers.ContentType = MediaTypeHeaderValue.Parse(System.Net.Mime.MediaTypeNames.Application.Json);
 

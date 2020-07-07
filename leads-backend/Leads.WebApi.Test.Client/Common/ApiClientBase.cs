@@ -1,32 +1,29 @@
-﻿namespace Leads.WebApi.Test.Tests.Common.Api
+﻿namespace Leads.WebApi.Test.Client.Common
 {
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using Application.Infrastructure.Requests;
-    using Application.Infrastructure.Requests.Results;
-    using Extensions;
+    using Http.Extensions;
+    using Results;
 
-    public abstract class ApiBase
+
+    public abstract class ApiClientBase
     {
         private readonly HttpClient _client;
 
 
-        protected ApiBase(HttpClient client)
+        protected ApiClientBase(HttpClient client)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
 
         protected async Task<ApiResult> MakeRequestAsync<TRequest>(string url, TRequest request)
-            where TRequest : IApiRequest
         {
             return new ApiResult(await _client.SendApiRequestAsync(url, request));
         }
 
         protected async Task<ApiResult<TResult>> MakeRequestAsync<TRequest, TResult>(string url, TRequest request)
-            where TRequest : IApiRequest<TResult>
-            where TResult : IApiRequestResult
         {
             return new ApiResult<TResult>(await _client.SendApiRequestAsync(url, request));
         }

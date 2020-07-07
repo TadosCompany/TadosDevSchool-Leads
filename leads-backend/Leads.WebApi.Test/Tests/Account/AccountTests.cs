@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Threading.Tasks;
-    using Application;
+    using Client.Common.Errors;
+    using Client.Users.Data;
     using Common;
-    using Domain.Users.Enums;
     using Xunit;
 
 
@@ -127,7 +127,7 @@
                 Assert.Equal(HttpStatusCode.OK, isNotAuthorizedApiResult.HttpResponse.StatusCode);
                 Assert.False(await isNotAuthorizedApiResult.GetPropertyValueAsync(x => x.IsAuthorized));
             }
-            
+
             using (var signOutApiResult = await api.Account.SignOutAsync())
             {
                 Assert.Equal(HttpStatusCode.Unauthorized, signOutApiResult.HttpResponse.StatusCode);

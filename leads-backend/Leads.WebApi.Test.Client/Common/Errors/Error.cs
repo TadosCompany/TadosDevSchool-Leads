@@ -1,8 +1,6 @@
-﻿namespace Leads.WebApi.Test.Tests.Common.Data
+﻿namespace Leads.WebApi.Test.Client.Common.Errors
 {
-    using Application;
-
-    public class ErrorDto
+    public class Error
     {
         public ErrorCodes Code { get; set; }
 

@@ -16,7 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Leads.WebApi.Test.Client\Leads.WebApi.Test.Client.csproj" />
       <ProjectReference Include="..\Leads.WebApi\Leads.WebApi.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Services\Messaging" />
     </ItemGroup>
 
 </Project>

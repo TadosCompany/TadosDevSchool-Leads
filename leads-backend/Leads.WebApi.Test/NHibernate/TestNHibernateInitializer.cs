@@ -9,6 +9,11 @@
 
     public class TestNHibernateInitializer : NHibernateInitializer
     {
+        private static readonly object FileLockObject = new object();
+        private static readonly object ExposeLockObject = new object();
+        private static bool _fileRemoved = false;
+        private static bool _schemaExposed = false;
+
         public TestNHibernateInitializer() : base("_")
         {
         }
@@ -22,8 +27,13 @@
             string databaseFilename = "test.db";
             string databaseFilePath = Path.Combine(Path.GetTempPath(), databaseFilename);
 
-            if (File.Exists(databaseFilePath))
-                File.Delete(databaseFilePath);
+            lock (FileLockObject)
+            {
+                if (File.Exists(databaseFilePath) && !_fileRemoved)
+                    File.Delete(databaseFilePath);
+
+                _fileRemoved = true;
+            }
 
             return SQLiteConfiguration
                 .Standard
@@ -34,7 +44,15 @@
 
         protected override void Expose(Configuration configuration)
         {
-            new SchemaExport(configuration).Create(true, true);
+            lock (ExposeLockObject)
+            {
+                if (_schemaExposed)
+                    return;
+                
+                new SchemaExport(configuration).Create(true, true);
+
+                _schemaExposed = true;
+            }
         }
     }
 }

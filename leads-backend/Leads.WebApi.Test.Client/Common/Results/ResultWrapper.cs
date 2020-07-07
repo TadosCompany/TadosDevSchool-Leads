@@ -1,5 +1,7 @@
-﻿namespace Leads.WebApi.Test.Tests.Common.Data
+﻿namespace Leads.WebApi.Test.Client.Common.Results
 {
+    using Errors;
+    using Json;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
@@ -15,12 +17,12 @@
         }
 
 
-        protected JToken ResponseToken => _responseToken ??= JsonConvert.DeserializeObject<JToken>(_responseBody);
+        protected JToken ResponseToken => _responseToken ??= JsonConvert.DeserializeObject<JToken>(_responseBody, JsonSettings.Converters);
 
 
-        public ErrorDto GetError()
+        public Error GetError()
         {
-            return ResponseToken.ToObject<ErrorDto>();
+            return ResponseToken.ToObject<Error>();
         }
     }
 }
