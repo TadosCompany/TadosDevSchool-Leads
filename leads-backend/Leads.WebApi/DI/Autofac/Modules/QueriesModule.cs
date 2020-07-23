@@ -3,12 +3,12 @@
     using Application.Persistence;
     using global::Autofac;
     using global::Autofac.Extensions.Registration.OpenGenericTypes;
-    using global::Autofac.Extensions.TypedFactories;
     using Infrastructure.Queries.Abstractions;
     using Infrastructure.Queries.Builders.Abstractions;
     using Infrastructure.Queries.Builders.Default;
     using Infrastructure.Queries.Factories.Abstractions;
     using Persistence;
+    using Tados.Autofac.Extensions.TypedFactories;
 
 
     public class QueriesModule : Module

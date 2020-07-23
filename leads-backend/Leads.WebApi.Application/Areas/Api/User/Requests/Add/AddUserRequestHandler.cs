@@ -15,19 +15,16 @@
     public class AddUserRequestHandler : IAsyncApiRequestHandler<AddUserRequest, AddUserRequestResult>
     {
         private readonly IPasswordGenerator _passwordGenerator;
-        private readonly IEmailMessageSender _emailMessageSender;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
 
         public AddUserRequestHandler(
             IPasswordGenerator passwordGenerator,
-            IEmailMessageSender emailMessageSender,
             IUserService userService,
             IMapper mapper)
         {
             _passwordGenerator = passwordGenerator ?? throw new ArgumentNullException(nameof(passwordGenerator));
-            _emailMessageSender = emailMessageSender ?? throw new ArgumentNullException(nameof(emailMessageSender));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
@@ -46,11 +43,11 @@
 
             await _userService.CreateAsync(user, cancellationToken);
 
-            // TODO : message templates
-            await _emailMessageSender.SendMessageAsync(
-                request.Email,
-                "Ваша учетная запись",
-                $"Логин: {user.Email}{Environment.NewLine}Пароль: {password}");
+            //// TODO : message templates
+            //await _emailMessageSender.SendMessageAsync(
+            //    request.Email,
+            //    "Ваша учетная запись",
+            //    $"Логин: {user.Email}{Environment.NewLine}Пароль: {password}");
 
             return new AddUserRequestResult(_mapper.Map<UserDto>(user));
         }

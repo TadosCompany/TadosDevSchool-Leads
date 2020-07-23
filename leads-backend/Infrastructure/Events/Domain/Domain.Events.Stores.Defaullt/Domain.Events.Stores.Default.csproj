@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Events.Stores.Abstractions\Domain.Events.Stores.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Common\Events.Stores.Default\Events.Stores.Default.csproj" />
+  </ItemGroup>
+
+</Project>

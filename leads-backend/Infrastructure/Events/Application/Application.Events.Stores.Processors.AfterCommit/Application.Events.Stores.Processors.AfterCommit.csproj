@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Transactions\Infrastructure.Transactions.Notifications.Abstractions\Infrastructure.Transactions.Notifications.Abstractions.csproj" />
+    <ProjectReference Include="..\Application.Events.Stores.Processors.Default\Application.Events.Stores.Processors.Default.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -30,7 +30,8 @@
         public UserController(
             IApiRequestHandlerFactory apiRequestHandlerFactory,
             IExpectCommit expectCommit,
-            IApiExceptionFactory apiExceptionFactory) : base(apiRequestHandlerFactory, expectCommit, apiExceptionFactory)
+            IApiExceptionFactory apiExceptionFactory) 
+            : base(apiRequestHandlerFactory, expectCommit, apiExceptionFactory)
         {
         }
 

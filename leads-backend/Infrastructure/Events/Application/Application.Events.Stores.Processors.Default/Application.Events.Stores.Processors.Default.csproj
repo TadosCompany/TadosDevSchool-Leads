@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application.Events.Buses.Abstractions\Application.Events.Buses.Abstractions.csproj" />
+    <ProjectReference Include="..\Application.Events.Mappers.Builders.Abstractions\Application.Events.Mappers.Builders.Abstractions.csproj" />
+    <ProjectReference Include="..\Application.Events.Stores.Processors.Abstractions\Application.Events.Stores.Processors.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Domain\Domain.Events.Stores.Processors.Default\Domain.Events.Stores.Processors.Default.csproj" />
+  </ItemGroup>
+
+</Project>

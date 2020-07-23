@@ -1,13 +1,13 @@
 ﻿namespace Leads.WebApi.DI.Autofac.Modules
 {
     using global::Autofac;
-    using global::Autofac.Extensions.TypedFactories;
     using Infrastructure.Commands.Abstractions;
     using Infrastructure.Commands.Builders.Abstractions;
     using Infrastructure.Commands.Builders.Default;
     using Infrastructure.Commands.Factories.Abstractions;
     using Persistence;
     using Persistence.Common.Commands;
+    using Tados.Autofac.Extensions.TypedFactories;
 
 
     public class CommandsModule : Module

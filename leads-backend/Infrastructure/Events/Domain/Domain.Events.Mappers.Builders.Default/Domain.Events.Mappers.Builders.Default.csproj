@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Events.Mappers.Builders.Abstractions\Domain.Events.Mappers.Builders.Abstractions.csproj" />
+    <ProjectReference Include="..\Domain.Events.Mappers.Facotires.Abstractions\Domain.Events.Mappers.Factories.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Common\Events.Mappers.Builders.Default\Events.Mappers.Builders.Default.csproj" />
+    <ProjectReference Include="..\Domain.Events.Abstractions\Domain.Events.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

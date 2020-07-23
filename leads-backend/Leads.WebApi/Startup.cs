@@ -1,5 +1,6 @@
 namespace Leads.WebApi
 {
+    using Application.Infrastructure.HostedServices;
     using Autofac;
     using Autofac.Extensions.ConfiguredModules;
     using DI.Microsoft.Extensions;
@@ -31,7 +32,8 @@ namespace Leads.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddHttpContextAccessor();
+                .AddHttpContextAccessor()
+                .AddHostedService<EmailSender>();
 
             services
                 .ConfigureControllers()
@@ -56,13 +58,14 @@ namespace Leads.WebApi
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{area}/{controller}/{action}");
             });
+
         }
     }
 }

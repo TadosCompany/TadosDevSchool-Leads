@@ -4,7 +4,7 @@
     using Application.Infrastructure.Requests.Handlers;
     using Application.Infrastructure.Requests.Handlers.Factories;
     using global::Autofac;
-    using global::Autofac.Extensions.TypedFactories;
+    using Tados.Autofac.Extensions.TypedFactories;
 
 
     public class ApiRequestsModule : Module

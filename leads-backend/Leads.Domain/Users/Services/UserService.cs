@@ -5,7 +5,9 @@
     using System.Threading.Tasks;
     using Abstractions;
     using Enums;
+    using Events;
     using Exceptions;
+    using global::Domain.Events.Raisers.Abstractions;
     using Infrastructure.Commands.Builders.Abstractions;
     using Infrastructure.Commands.Contexts.Common.Extensions;
     using Infrastructure.Queries.Builders.Abstractions;
@@ -17,23 +19,35 @@
     {
         private readonly IAsyncQueryBuilder _asyncQueryBuilder;
         private readonly IAsyncCommandBuilder _asyncCommandBuilder;
+        private readonly IAsyncDomainEventRaiser _asyncDomainEventRaiser;
 
 
-        public UserService(IAsyncQueryBuilder asyncQueryBuilder, IAsyncCommandBuilder asyncCommandBuilder)
+
+        public UserService(
+            IAsyncQueryBuilder asyncQueryBuilder, 
+            IAsyncCommandBuilder asyncCommandBuilder,
+            IAsyncDomainEventRaiser asyncDomainEventRaiser)
         {
             _asyncQueryBuilder = asyncQueryBuilder ?? throw new ArgumentNullException(nameof(asyncQueryBuilder));
             _asyncCommandBuilder = asyncCommandBuilder ?? throw new ArgumentNullException(nameof(asyncCommandBuilder));
+            _asyncDomainEventRaiser = asyncDomainEventRaiser ?? throw new ArgumentNullException(nameof(asyncDomainEventRaiser));
         }
 
 
-        public async Task CreateAsync(User user, CancellationToken cancellationToken = default)
+
+        public async Task CreateAsync(
+            User user, 
+            CancellationToken cancellationToken = default)
         {
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
 
-            var existingUser = await _asyncQueryBuilder
+
+            User existingUser = await _asyncQueryBuilder
                 .For<User>()
-                .WithAsync(new FindByEmail(user.Email), cancellationToken);
+                .WithAsync(
+                    new FindByEmail(user.Email), 
+                    cancellationToken);
 
             if (existingUser != null)
             {
@@ -48,9 +62,14 @@
             }
 
             await _asyncCommandBuilder.CreateAsync(user, cancellationToken);
+
+
+            await _asyncDomainEventRaiser.RaiseAsync(new UserCreatedDomainEvent(user), cancellationToken);
         }
 
-        public async Task EditAsync(User user, string email, UserRoles role,
+        public async Task EditAsync(
+            User user, string email, 
+            UserRoles role,
             CancellationToken cancellationToken = default)
         {
             if (user == null)
@@ -59,9 +78,12 @@
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(email));
 
-            var existingUser = await _asyncQueryBuilder
+
+            User existingUser = await _asyncQueryBuilder
                 .For<User>()
-                .WithAsync(new FindByEmail(email), cancellationToken);
+                .WithAsync(
+                    new FindByEmail(email), 
+                    cancellationToken);
 
             if (existingUser != null && !existingUser.Equals(user))
             {
@@ -78,14 +100,19 @@
             user.Edit(email, role);
         }
 
-        public async Task RestoreAsync(User user, CancellationToken cancellationToken = default)
+        public async Task RestoreAsync(
+            User user, 
+            CancellationToken cancellationToken = default)
         {
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
 
-            var existingUser = await _asyncQueryBuilder
+
+            User existingUser = await _asyncQueryBuilder
                 .For<User>()
-                .WithAsync(new FindByEmail(user.Email), cancellationToken);
+                .WithAsync(
+                    new FindByEmail(user.Email), 
+                    cancellationToken);
 
             if (existingUser != null && !existingUser.Equals(user))
             {

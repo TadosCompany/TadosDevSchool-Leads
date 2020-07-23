@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -9,6 +9,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Events\Application\Application.Events.Abstractions\Application.Events.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Application\Application.Events.Buses.Abstractions\Application.Events.Buses.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Application\Application.Events.Mappers.Base\Application.Events.Mappers.Base.csproj" />
       <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Criteria.Common.Extensions\Infrastructure.Queries.Criteria.Common.Extensions.csproj" />
       <ProjectReference Include="..\Infrastructure\Transactions\Infrastructure.Transactions.Behaviors\Infrastructure.Transactions.Behaviors.csproj" />
       <ProjectReference Include="..\Infrastructure\Transactions\Infrastructure.Transactions.Notifications.Abstractions\Infrastructure.Transactions.Notifications.Abstractions.csproj" />

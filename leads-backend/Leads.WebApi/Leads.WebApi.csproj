@@ -5,7 +5,22 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Events\Application\Application.Events.Buses.InMemory\Application.Events.Buses.InMemory.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Application\Application.Events.Mappers.Builders.Default\Application.Events.Mappers.Builders.Default.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Application\Application.Events.Mappers.Default\Application.Events.Mappers.Default.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Application\Application.Events.Mappers.Factories.Abstractions\Application.Events.Mappers.Factories.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Application\Application.Events.Stores.Processors.AfterCommit\Application.Events.Stores.Processors.AfterCommit.csproj" />
       <ProjectReference Include="..\Infrastructure\Commands\Infrastructure.Commands.Builders.Default\Infrastructure.Commands.Builders.Default.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.Dispatchers.Abstractions\Domain.Events.Dispatchers.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.Dispatchers.Default\Domain.Events.Dispatchers.Default.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.HandlerBuilders.Abstractions\Domain.Events.HandlerBuilders.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.HandlerBuilders.Default\Domain.Events.HandlerBuilders.Default.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.HandlerFactories.Abstractions\Domain.Events.HandlerFactories.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.Handlers.Abstractions\Domain.Events.Handlers.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.Raisers.Abstractions\Domain.Events.Raisers.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.Raisers.Default\Domain.Events.Raisers.Default.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.Stores.Abstractions\Domain.Events.Stores.Abstractions.csproj" />
+      <ProjectReference Include="..\Infrastructure\Events\Domain\Domain.Events.Stores.Defaullt\Domain.Events.Stores.Default.csproj" />
       <ProjectReference Include="..\Infrastructure\NHibernate\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj" />
       <ProjectReference Include="..\Infrastructure\Queries\Infrastructure.Queries.Builders.Default\Infrastructure.Queries.Builders.Default.csproj" />
       <ProjectReference Include="..\Leads.Persistence.NHibernate\Leads.Persistence.NHibernate.csproj" />
@@ -15,6 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Autofac" Version="5.2.0" />
       <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
@@ -25,7 +41,7 @@
       <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.5.1" />
       <PackageReference Include="Tados.Autofac.Extensions.ConfiguredModules" Version="1.0.0" />
       <PackageReference Include="Tados.Autofac.Extensions.Registration.OpenGenericTypes" Version="1.0.0" />
-      <PackageReference Include="Tados.Autofac.Extensions.TypedFactories" Version="1.0.0" />
+      <PackageReference Include="Tados.Autofac.Extensions.TypedFactories" Version="1.0.1.1" />
     </ItemGroup>
 
 

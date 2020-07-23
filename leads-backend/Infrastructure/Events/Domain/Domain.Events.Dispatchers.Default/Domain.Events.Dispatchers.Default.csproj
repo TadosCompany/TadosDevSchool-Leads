@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Events.Dispatchers.Abstractions\Domain.Events.Dispatchers.Abstractions.csproj" />
+    <ProjectReference Include="..\Domain.Events.HandlerBuilders.Abstractions\Domain.Events.HandlerBuilders.Abstractions.csproj" />
+    <ProjectReference Include="..\Domain.Events.HandlerFactories.Abstractions\Domain.Events.HandlerFactories.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Common\Events.Dispatchers.Default\Events.Dispatchers.Default.csproj" />
+  </ItemGroup>
+
+</Project>
