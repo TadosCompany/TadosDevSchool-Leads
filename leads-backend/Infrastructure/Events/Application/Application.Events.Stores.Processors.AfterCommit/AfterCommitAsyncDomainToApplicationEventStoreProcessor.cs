@@ -1,6 +1,7 @@
 ﻿namespace Application.Events.Stores.Processors.AfterCommit
 {
     using System;
+    using System.Threading.Tasks;
     using Buses.Abstractions;
     using Default;
     using Domain.Events.Stores.Abstractions;
@@ -40,9 +41,6 @@
 
 
 
-        private void OnAfterCommit(object sender, EventArgs e)
-        {
-            ProcessAsync().Wait();
-        }
+        private void OnAfterCommit(object sender, EventArgs e) => Task.Run(() => ProcessAsync());
     }
 }

@@ -79,7 +79,7 @@
                 .InstancePerLifetimeScope();
 
             builder
-                .RegisterType<AsyncInMemoryApplicationEventBus>()
+                .RegisterType<InMemoryAsyncApplicationEventBus>()
                 .As<IAsyncApplicationEventBus>()
                 .SingleInstance();
 
@@ -87,7 +87,7 @@
                 .RegisterType<AfterCommitAsyncDomainToApplicationEventStoreProcessor>()
                 .As<IAsyncDomainToApplicationEventStoreProcessor>()
                 .InstancePerLifetimeScope();
-                //.AutoActivate();    // Uncomment if Aoutofac would fix it - https://github.com/autofac/Autofac/issues/567
+                //.AutoActivate();    // Uncomment if Autofac would fix it - https://github.com/autofac/Autofac/issues/567
         }
     }
 }

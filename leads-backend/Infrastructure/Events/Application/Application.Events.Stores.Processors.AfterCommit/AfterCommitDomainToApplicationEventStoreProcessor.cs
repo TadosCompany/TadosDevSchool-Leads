@@ -40,9 +40,6 @@
 
 
 
-        private void OnAfterCommit(object sender, EventArgs e)
-        {
-            Process();
-        }
+        private void OnAfterCommit(object sender, EventArgs e) => Process();
     }
 }

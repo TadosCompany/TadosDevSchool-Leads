@@ -1,4 +1,4 @@
-﻿namespace Events.Buses.InMemory
+﻿namespace Events.Buses.InMemory.Sync
 {
     using System.Collections.Concurrent;
     using Abstractions;

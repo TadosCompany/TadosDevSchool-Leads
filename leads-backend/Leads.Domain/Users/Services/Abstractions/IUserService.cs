@@ -9,10 +9,12 @@
 
     public interface IUserService : IDomainService
     {
-        Task CreateAsync(User user, CancellationToken cancellationToken = default);
+        Task<User> CreateAsync(string email, string password, UserRoles role, CancellationToken cancellationToken = default);
 
         Task EditAsync(User user, string email, UserRoles role, CancellationToken cancellationToken = default);
 
         Task RestoreAsync(User user, CancellationToken cancellationToken = default);
+
+        Task ResetPasswordAsync(User user, string password, CancellationToken cancellationToken = default);
     }
 }

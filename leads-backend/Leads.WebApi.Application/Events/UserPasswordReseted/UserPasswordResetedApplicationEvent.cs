@@ -1,10 +1,10 @@
-﻿namespace Leads.WebApi.Application.Events.UserCreated
+﻿namespace Leads.WebApi.Application.Events.UserPasswordReseted
 {
     using global::Application.Events.Abstractions;
 
-    public class UserCreatedApplicationEvent : IApplicationEvent
+    public class UserPasswordResetedApplicationEvent : IApplicationEvent
     {
-        public UserCreatedApplicationEvent(string email, string password)
+        public UserPasswordResetedApplicationEvent(string email, string password)
         {
             Email = email;
             Password = password;

@@ -11,7 +11,7 @@
             builder
                 .RegisterType<LoggerEmailMessageSender>()
                 .As<IEmailMessageSender>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
     }
 }

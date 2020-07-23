@@ -35,13 +35,19 @@
 
 
 
-        public async Task CreateAsync(
-            User user, 
+        public async Task<User> CreateAsync(
+            string email, 
+            string password, 
+            UserRoles role,
             CancellationToken cancellationToken = default)
         {
-            if (user == null)
-                throw new ArgumentNullException(nameof(user));
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(email));
 
+            if (string.IsNullOrWhiteSpace(password))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(password));
+
+            var user = new User(email, password, role);
 
             User existingUser = await _asyncQueryBuilder
                 .For<User>()
@@ -63,8 +69,11 @@
 
             await _asyncCommandBuilder.CreateAsync(user, cancellationToken);
 
+            await _asyncDomainEventRaiser.RaiseAsync(
+                new UserCreatedDomainEvent(user.Email, password, user.Role), 
+                cancellationToken);
 
-            await _asyncDomainEventRaiser.RaiseAsync(new UserCreatedDomainEvent(user), cancellationToken);
+            return user;
         }
 
         public async Task EditAsync(
@@ -127,6 +136,21 @@
             }
 
             user.Restore();
+        }
+
+        public async Task ResetPasswordAsync(
+            User user,
+            string password,
+            CancellationToken cancellationToken = default)
+        {
+            if (user == null) 
+                throw new ArgumentNullException(nameof(user));
+
+            user.SetPassword(password);
+
+            await _asyncDomainEventRaiser.RaiseAsync(
+                new UserPasswordResetedDomainEvent(user.Email, password),
+                cancellationToken);
         }
     }
 }

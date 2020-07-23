@@ -5,9 +5,9 @@
     using System.Threading.Tasks;
     using Domain.Common.Queries.Criteria.Extensions;
     using Domain.Users.Objects.Entities;
+    using Domain.Users.Services.Abstractions;
     using global::Infrastructure.Queries.Builders.Abstractions;
     using Infrastructure.Exceptions.Factories.Abstractions;
-    using Infrastructure.Messaging;
     using Infrastructure.Requests.Handlers;
     using Infrastructure.Security.Passwords;
 
@@ -16,19 +16,20 @@
     {
         private readonly IAsyncQueryBuilder _queryBuilder;
         private readonly IPasswordGenerator _passwordGenerator;
-        private readonly IEmailMessageSender _emailMessageSender;
+        private readonly IUserService _userService;
         private readonly IApiExceptionFactory _apiExceptionFactory;
+
 
 
         public ResetPasswordRequestHandler(
             IAsyncQueryBuilder queryBuilder,
             IPasswordGenerator passwordGenerator,
-            IEmailMessageSender emailMessageSender,
+            IUserService userService,
             IApiExceptionFactory apiExceptionFactory)
         {
             _queryBuilder = queryBuilder ?? throw new ArgumentNullException(nameof(queryBuilder));
             _passwordGenerator = passwordGenerator ?? throw new ArgumentNullException(nameof(passwordGenerator));
-            _emailMessageSender = emailMessageSender ?? throw new ArgumentNullException(nameof(emailMessageSender));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _apiExceptionFactory = apiExceptionFactory ?? throw new ArgumentNullException(nameof(apiExceptionFactory));
         }
 
@@ -37,19 +38,14 @@
             ResetPasswordRequest request,
             CancellationToken cancellationToken = default)
         {
-            var user = await _queryBuilder.FindNotDeletedByIdAsync<User>(request.Id, cancellationToken);
+            User user = await _queryBuilder.FindNotDeletedByIdAsync<User>(request.Id, cancellationToken);
 
             if (user == null)
                 throw _apiExceptionFactory.Create(ErrorCodes.UserNotFound);
 
-            var password = _passwordGenerator.Generate();
+            string password = _passwordGenerator.Generate();
 
-            user.SetPassword(password);
-
-            await _emailMessageSender.SendMessageAsync(
-                user.Email,
-                "Ваш пароль сброшен",
-                $"Логин: {user.Email}{Environment.NewLine}Пароль: {password}");
+            await _userService.ResetPasswordAsync(user, password, cancellationToken);
         }
     }
 }

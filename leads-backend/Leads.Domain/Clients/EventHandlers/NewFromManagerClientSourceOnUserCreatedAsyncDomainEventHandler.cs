@@ -23,10 +23,10 @@
 
         public Task HandleAsync(UserCreatedDomainEvent @event, CancellationToken cancellationToken)
         {
-            if (@event.User.Role != UserRoles.Manager)
+            if (@event.Role != UserRoles.Manager)
                 return Task.CompletedTask;
 
-            var fromManagerClientSource = new ClientSource($"От менеджера {@event.User.Email}");
+            var fromManagerClientSource = new ClientSource($"От менеджера {@event.Email}");
 
             return _clientSourceService.CreateAsync(fromManagerClientSource, cancellationToken);
         }

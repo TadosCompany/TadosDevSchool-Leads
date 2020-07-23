@@ -1,28 +1,28 @@
-﻿namespace Events.Buses.InMemory
+﻿namespace Events.Buses.InMemory.Async
 {
     using System;
     using System.Threading.Tasks;
     using Abstractions;
     using Events.Abstractions;
 
-    public class AsyncInMemoryEventBus<TEvent> : IAsyncEventBus<TEvent>
+    public class InMemoryAsyncEventBus<TEvent> : IAsyncEventBus<TEvent>
         where TEvent : IEvent
     {
-        private readonly InMemoryEventsSubscriptions<TEvent> _eventsSubscriptions = new InMemoryEventsSubscriptions<TEvent>();
-        private readonly InMemoryEventSubscriptionTokensMap<TEvent> _eventSubscriptionTokens = new InMemoryEventSubscriptionTokensMap<TEvent>();
+        private readonly InMemoryAsyncEventsSubscriptions<TEvent> _eventsSubscriptions = new InMemoryAsyncEventsSubscriptions<TEvent>();
+        private readonly InMemoryAsyncEventSubscriptionTokensMap<TEvent> _eventSubscriptionTokens = new InMemoryAsyncEventSubscriptionTokensMap<TEvent>();
 
 
 
-        public Task<IEventSubscriptionToken> SubscribeAsync<TConcreteEvent>(Action<TConcreteEvent> action) 
+        public Task<IEventSubscriptionToken> SubscribeAsync<TConcreteEvent>(Func<TConcreteEvent, Task> action) 
             where TConcreteEvent : class, TEvent
         {
-            InMemoryEventSubscription<TEvent> subscription = InMemoryEventSubscription<TEvent>.Create(action);
+            InMemoryAsyncEventSubscription<TEvent> subscription = InMemoryAsyncEventSubscription<TEvent>.Create(action);
 
             _eventsSubscriptions.AddOrUpdate(
                 typeof(TConcreteEvent),
                 _ =>
                 {
-                    var eventSubscriptions = new InMemoryEventSubscriptions<TEvent>();
+                    var eventSubscriptions = new InMemoryAsyncEventSubscriptions<TEvent>();
 
                     eventSubscriptions.TryAdd(subscription.Token, subscription);
 
@@ -53,15 +53,13 @@
             return Task.CompletedTask;
         }
 
-        public Task PublishAsync<TConcreteEvent>(TConcreteEvent @event) 
+        public async Task PublishAsync<TConcreteEvent>(TConcreteEvent @event) 
             where TConcreteEvent : TEvent
         {
-            foreach (InMemoryEventSubscription<TEvent> eventSubscription in _eventsSubscriptions[@event.GetType()].Values)
+            foreach (InMemoryAsyncEventSubscription<TEvent> eventSubscription in _eventsSubscriptions[@event.GetType()].Values)
             {
-                eventSubscription.Action(@event);
+                await eventSubscription.Action(@event);
             }
-
-            return Task.CompletedTask;
         }
     }
 }

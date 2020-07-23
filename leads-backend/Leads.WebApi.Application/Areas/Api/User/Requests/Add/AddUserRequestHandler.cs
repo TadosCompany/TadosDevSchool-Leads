@@ -7,7 +7,6 @@
     using Domain.Users.Objects.Entities;
     using Domain.Users.Services.Abstractions;
     using Dto;
-    using Infrastructure.Messaging;
     using Infrastructure.Requests.Handlers;
     using Infrastructure.Security.Passwords;
 
@@ -17,6 +16,7 @@
         private readonly IPasswordGenerator _passwordGenerator;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+
 
 
         public AddUserRequestHandler(
@@ -30,24 +30,14 @@
         }
 
 
+
         public async Task<AddUserRequestResult> ExecuteAsync(
             AddUserRequest request,
             CancellationToken cancellationToken = default)
         {
-            var password = _passwordGenerator.Generate();
+            string password = _passwordGenerator.Generate();
 
-            var user = new User(
-                request.Email,
-                password,
-                request.Role);
-
-            await _userService.CreateAsync(user, cancellationToken);
-
-            //// TODO : message templates
-            //await _emailMessageSender.SendMessageAsync(
-            //    request.Email,
-            //    "Ваша учетная запись",
-            //    $"Логин: {user.Email}{Environment.NewLine}Пароль: {password}");
+            User user = await _userService.CreateAsync(request.Email, password, request.Role, cancellationToken);
 
             return new AddUserRequestResult(_mapper.Map<UserDto>(user));
         }

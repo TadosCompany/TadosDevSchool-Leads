@@ -1,4 +1,4 @@
-﻿namespace Events.Buses.InMemory
+﻿namespace Events.Buses.InMemory.Sync
 {
     using System;
     using Abstractions;
@@ -36,11 +36,5 @@
                 }
             }
         }
-    }
-
-
-    public class EventSubscriptions
-    {
-
     }
 }

@@ -12,7 +12,7 @@
             if (@event == null) 
                 throw new ArgumentNullException(nameof(@event));
 
-            return new UserCreatedApplicationEvent(@event.User);
+            return new UserCreatedApplicationEvent(@event.Email, @event.Password);
         }
     }
 }

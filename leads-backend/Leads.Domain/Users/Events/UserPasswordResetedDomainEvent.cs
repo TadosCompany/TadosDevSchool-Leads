@@ -1,15 +1,13 @@
 ﻿namespace Leads.Domain.Users.Events
 {
-    using Enums;
     using global::Domain.Events.Abstractions;
 
-    public class UserCreatedDomainEvent : IDomainEvent
+    public class UserPasswordResetedDomainEvent : IDomainEvent
     {
-        public UserCreatedDomainEvent(string email, string password, UserRoles role)
+        public UserPasswordResetedDomainEvent(string email, string password)
         {
             Email = email;
             Password = password;
-            Role = role;
         }
 
 
@@ -17,7 +15,5 @@
         public string Email { get; }
 
         public string Password { get; }
-
-        public UserRoles Role { get; }
     }
 }

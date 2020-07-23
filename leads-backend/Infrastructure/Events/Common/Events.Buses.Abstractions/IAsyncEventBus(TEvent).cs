@@ -7,7 +7,7 @@
     public interface IAsyncEventBus<in TEvent>
         where TEvent : IEvent
     {
-        Task<IEventSubscriptionToken> SubscribeAsync<TConcreteEvent>(Action<TConcreteEvent> action)
+        Task<IEventSubscriptionToken> SubscribeAsync<TConcreteEvent>(Func<TConcreteEvent, Task> action)
             where TConcreteEvent : class, TEvent;
 
         Task UnsubscribeAsync(IEventSubscriptionToken eventSubscriptionToken);

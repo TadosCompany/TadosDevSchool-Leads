@@ -33,7 +33,7 @@ namespace Leads.WebApi
         {
             services
                 .AddHttpContextAccessor()
-                .AddHostedService<EmailSender>();
+                .AddHostedService<EmailSenderHostedService>();
 
             services
                 .ConfigureControllers()
