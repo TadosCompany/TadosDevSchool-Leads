@@ -41,6 +41,9 @@
 
 
 
-        private void OnAfterCommit(object sender, EventArgs e) => Task.Run(() => ProcessAsync());
+        private void OnAfterCommit(object sender, EventArgs e)
+        {
+            Task.Run(() => ProcessAsync()).GetAwaiter().GetResult();
+        }
     }
 }
